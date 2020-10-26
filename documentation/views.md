@@ -45,7 +45,11 @@
 - Seitentyp
 - NutzerID
 
-### Planzenkachel
+-> per Klick auf den Nutzerbutton öffnet sich ein Popup:
+	- Login/Logout/Register
+	- Nutzerprofil ansehen (wenn ein Nutzer angemeldet ist)
+
+### Pflanzenkachel
 
 - Boolean für groß oder klein
 - PflanzenID
