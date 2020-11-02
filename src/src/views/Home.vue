@@ -1,18 +1,17 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <Header pageName="Welcome" userId="7357"/>
+    <Header pageName="Welcome" userId="7357" />
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import Header from '@/components/Header.vue'
+import Header from "@/components/Header.vue";
 
 export default {
-  name: 'Home',
+  name: "Home",
   components: {
-    Header
-  }
-}
+    Header,
+  },
+};
 </script>
