@@ -50,35 +50,56 @@
 	- Nutzerprofil ansehen (wenn ein Nutzer angemeldet ist)
 
 ### Pflanzenkachel
-
+Input:
 - Boolean für groß oder klein
 - PflanzenID
 
-### Kategorie-Tag
+Output:
+- Name
+- Bild
+- Wachstumsstadium
 
+### Kategorie-Tag
+Input:
 - TagID
 - selected
 
-### Tag-Container
+Output:
+- Name
+- Auswahlstatus
 
+### Tag-Container
+Input:
 - Containerdimensionen
 - TagIDs
 - (Clickable)
 
 ### Kachel-Container
-
+Input:
 - Titel
 - Vertikal/Horizontal
 - Containerdimensionen?
 - PflanzenIDs?
 
-### Nutzerinfo-Container
+Output:
+- Titel
 
+### Nutzerinfo-Container
+Input:
 - NutzerID
+
+Output:
+- Name
+- Nutzerbeschreibung
+- Angemeldet seit
+- ...
 
 ### Kalender
-
+Input:
 - NutzerID
+
+Output:
+- Wachstums-/Erntezeiträume der Pflanzen des Nutzers
 
 ### TextInput
 
