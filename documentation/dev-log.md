@@ -10,6 +10,6 @@
 
 ## Date 09/11/20
 
-Die oben genannten Komponenten fertigmachen.
+Die oben genannten Komponenten fertigmachen. <br>
 Header Komponente fertig:
     <br> verschiedene Darstellungen für die Seiten, Dropdown Menu für Nutzer Icon
