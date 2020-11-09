@@ -1,6 +1,11 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand title" href="#">{{ pageName }}</a>
+    <a v-if="bools.hasReturnBtn">
+      <i class="material-icons icons" @click="this.$router.go(-1)">
+        arrow_back</i
+      >
+    </a>
+    <div class="navbar-brand title">{{ pageName }}</div>
     <button
       class="navbar-toggler"
       type="button"
@@ -15,43 +20,59 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto"></ul>
       <form class="form-inline my-2 my-lg-0">
-        <router-link to="/">
-          <i class="material-icons icons">home</i></router-link
-        >
-        <router-link to="/search">
-          <i class="material-icons icons">search</i></router-link
-        >
-        <router-link to="/profile">
-          <i class="material-icons icons">account_circle</i></router-link
-        >
+        <router-link v-if="bools.hasHomeBtn" to="/">
+          <i class="material-icons icons">home</i>
+        </router-link>
+        <router-link v-if="bools.hasSearchBtn" to="/">
+          <i class="material-icons icons">search</i>
+        </router-link>
+        <router-link to="/profile/">
+          <i class="material-icons icons">account_circle</i>
+        </router-link>
       </form>
     </div>
   </nav>
 </template>
 
 <script>
+import { onMounted, ref, reactive } from "vue";
+
 export default {
   name: "Header",
   props: {
     pageName: String,
     userId: Number,
   },
-  // methods:
+  setup(props) {
+    const bools = reactive({
+      hasReturnBtn: true,
+      hasSearchBtn: true,
+      hasHomeBtn: true,
+    });
+
+    switch (props.pageName) {
+      case "Willkommen":
+        // HomeScreen
+        bools.hasReturnBtn = false;
+        bools.hasHomeBtn = false;
+        break;
+      case "Suche":
+        bools.hasSearchBtn = false;
+        break;
+      case "Anlegen":
+        bools.hasSearchBtn = false;
+        break;
+      default:
+        break;
+    }
+
+    return { bools };
+  },
+
+  methods: {
+    getType() {},
+  },
 };
-
-// function getType() {
-//   switch (this.pageName) {
-//     case "Willkommen":
-//       return 1;
-//     case "Suche":
-//       return 2;
-//     case "Profil":
-//       return 3;
-
-//     default:
-//       return "blah";
-//   }
-// }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
