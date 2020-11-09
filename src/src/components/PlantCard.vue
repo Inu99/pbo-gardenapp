@@ -1,3 +1,11 @@
+<!-- 
+      example usage: <PlantCard v-bind:useSmall="true" v-bind:plantId="1337" />
+
+      TODO: - get parameters (picture, name,... ) from json backend
+            - implement ripeness indicator
+
+-->
+
 <template>
   <div>
     <router-link :to="{ name: 'PflanzenView', params: { plantId: plantId } }">

@@ -1,4 +1,4 @@
-# In diesem Document kann man eine chronologische Entwicklung des Apps sehen.
+# In diesem Dokument kann man eine chronologische Entwicklung der App sehen.
 
 ## Date 02/11/20
 ### Aufteilung den Komponenten.
@@ -15,3 +15,7 @@
 
 ### CloudTag Komponente weiterentwickelt:
     style und funktionalität fertig, fehlt noch emit nach oben
+
+### Pflanzenkarte weiterentwickelt:
+    CSS für responsive Größe implementiert
+    bei Klick weiterleitung an eine (bisher prototypisch implementierte) PflanzenView, mit Übergabe der PflanzenID
