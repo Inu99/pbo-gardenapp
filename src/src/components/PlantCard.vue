@@ -1,13 +1,16 @@
 <template>
   <div>
-    <div class="card plantCard" style="width: 18rem">
-      <img
-        src="https://www.baumpflegeportal.de/wp-content/uploads/2016/05/160509_Starke-Baumtypen_Eiche-im-Seidengewand_02.jpg"
-      />
-      <div class="overlay">
-        <p>BAUM</p>
+    <router-link :to="{ name: 'PflanzenView', params: { plantId: plantId } }">
+      <div :style="plantCard" style="width: 18rem">
+        <img
+          class="plantCardImg"
+          src="https://www.baumpflegeportal.de/wp-content/uploads/2016/05/160509_Starke-Baumtypen_Eiche-im-Seidengewand_02.jpg"
+        />
+        <div class="plantCardImgOverlay">
+          <p>BAUM</p>
+        </div>
       </div>
-    </div>
+    </router-link>
   </div>
 </template>
 
@@ -18,36 +21,50 @@ export default {
     useSmall: Boolean,
     plantId: Number,
   },
+  data() {
+    var height;
+    if (this.useSmall == true) {
+      height = "150px";
+    } else {
+      height = "300px";
+    }
+    return {
+      plantCard: {
+        position: "relative",
+        "text-align": "center",
+        color: "white",
+        "border-radius": "calc(1rem - 1px)",
+        overflow: "hidden",
+        height: height,
+        width: "300px",
+        "object-fit": "cover",
+      },
+    };
+  },
 };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.plantCard {
-  position: relative;
-  text-align: center;
-  color: white;
-  border-radius: calc(1rem - 1px);
-  overflow: hidden;
-  height: 300px;
-  width: 300px;
-  object-fit: cover;
+.plantCardImg {
+  min-height: 100%;
+  min-width: 100%;
+  position: absolute;
+  top: -9999px;
+  bottom: -9999px;
+  left: -9999px;
+  right: -9999px;
+  margin: auto;
 }
 
-.plantCard img {
-  flex-shrink: 0;
-  width: 100%;
-  height: 100%;
-}
-
-.plantCard p {
+.plantCardImgOverlay p {
   position: absolute;
   bottom: 0px;
   left: 16px;
   font-size: 16px;
 }
 
-.overlay {
+.plantCardImgOverlay {
   position: absolute;
   width: 100%;
   height: 45%;
