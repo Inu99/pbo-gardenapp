@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <Header pageName="Welcome" userId="7357" />
+    <Header pageName="Willkommen" userId="7357" />
     <TagContainer v-bind:tagNames="tagNames" :clickable="true" />
     checked:
     <p @get-choosen-tags="showTags"></p>
