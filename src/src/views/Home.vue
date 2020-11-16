@@ -1,9 +1,10 @@
 <template>
   <div class="home">
     <Header pageName="Willkommen" userId="7357" />
-    <TagContainer v-bind:tagNames="tagNames" :clickable="true" />
-    checked:
-    <p @get-choosen-tags="showTags"></p>
+    <PlantCard v-bind:useSmall="true" v-bind:plantId="1337" />
+    <TagContainer :clickable="true" v-model="tagNames" />
+    <br />
+    checkedNames: {{ tagNames }}
   </div>
 </template>
 
@@ -11,22 +12,28 @@
 // @ is an alias to /src
 import Header from "@/components/Header.vue";
 import TagContainer from "@/components/TagContainer.vue";
+import PlantCard from "@/components/PlantCard.vue";
 
 export default {
   name: "Home",
   components: {
     Header,
     TagContainer,
+    PlantCard,
   },
   data() {
     return {
-      tagNames: ["a", "aa", "aab", "aabb", "aabbc", "aabbcc", "abbbaaac"],
+      tagNames: [
+        { name: "a", isChecked: false },
+        { name: "aa", isChecked: false },
+      ],
+      checkedNames: [],
     };
   },
   methods: {
     showTags(choosenTags) {
       console.log(choosenTags);
-      this.text = choosenTags;
+      this.checkedNames = choosenTags;
     },
   },
 };

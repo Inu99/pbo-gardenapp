@@ -1,29 +1,31 @@
 <template>
   <div class="tagcloud01">
     <ul>
-      <li v-for="tagName in tagNames" v-bind:key="tagName">
-        <input type="checkbox" :id="tagName" :value="tagName"
-        v-model="checkedNames" :checked="false" visibility: hidden
-        @input="$emit('get-choosen-tags', checkedNames)"/>
-        <label :for="tagName"> {{ tagName }}</label>
+      <li v-for="(tagObject, index) in modelValue" v-bind:key="tagObject.name">
+        <input type="checkbox" :id="tagObject.name" :value="tagObject.name"
+        :checked="tagObject.isChecked" visibility: hidden
+        @input="changeChecked(index)"/>
+        <label :for="tagObject.name"> {{ tagObject.name }}</label>
       </li>
     </ul>
   </div>
-  <!-- clickable: {{ clickable }} <br />
-  checkedNames: {{ checkedNames }} -->
 </template>
 
 <script>
 export default {
   name: "Header",
   props: {
-    tagNames: Array,
+    // tags array object
+    // validation?
+    modelValue: Array,
     clickable: Boolean,
   },
-  data() {
-    return {
-      checkedNames: [],
-    };
+  methods: {
+    changeChecked(index) {
+      var tagsNew = this.modelValue;
+      tagsNew[index].isChecked = !tagsNew[index].isChecked;
+      this.$emit("update:tags", tagsNew);
+    },
   },
 };
 </script>
