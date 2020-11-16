@@ -19,3 +19,10 @@
 ### Pflanzenkarte weiterentwickelt:
     CSS für responsive Größe implementiert
     bei Klick weiterleitung an eine (bisher prototypisch implementierte) PflanzenView, mit Übergabe der PflanzenID
+
+## Date 16/11/20
+erste Code Review: <br>
+
+
+neue Komponente begonnen: <br>
+- CardContainer

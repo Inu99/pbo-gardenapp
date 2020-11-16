@@ -1,0 +1,12 @@
+{
+    "plant": [
+        {
+            "id": 0,
+            "name": "Baum",
+            "picture": "https://www.baumpflegeportal.de/wp-content/uploads/2016/05/160509_Starke-Baumtypen_Eiche-im-Seidengewand_02.jpg",
+            "tags": [
+                {}
+            ]
+        }
+    ]
+}

@@ -1,7 +1,7 @@
 <template>
   <div class="home">
-    <Header pageName="Willkommen" userId="7357" />
-    <PlantCard v-bind:useSmall="true" v-bind:plantId="1337" />
+    <Header pageName="Willkommen" :userId="7357" />
+    <CardContainer title="Mein Garten" :plantIds="plantIds" isVertical />
     <TagContainer :clickable="true" v-model="tagNames" />
     <br />
     checkedNames: {{ tagNames }}
@@ -12,7 +12,7 @@
 // @ is an alias to /src
 import Header from "@/components/Header.vue";
 import TagContainer from "@/components/TagContainer.vue";
-import PlantCard from "@/components/PlantCard.vue";
+import CardContainer from "@/components/CardContainer.vue";
 
 export default {
   name: "Home",
@@ -27,8 +27,9 @@ export default {
         { name: "a", isChecked: false },
         { name: "aa", isChecked: false },
       ],
+      plantIds: [7357, 545, 46, 5, 7357, 545, 46, 5, 7357, 545, 46],
       checkedNames: [],
-    };
+    CardContainer,
   },
   methods: {
     showTags(choosenTags) {
