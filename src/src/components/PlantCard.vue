@@ -1,21 +1,17 @@
 <!-- 
       example usage: <PlantCard v-bind:useSmall="true" v-bind:plantId="1337" />
 
-      TODO: - get parameters (picture, name,... ) from json backend
-            - implement ripeness indicator
+      TODO: - implement ripeness indicator
 
 -->
 
 <template>
-  <div>
+  <div class="plantCard">
     <router-link :to="{ name: 'PflanzenView', params: { plantId: plantId } }">
-      <div :style="plantCard" style="width: 18rem">
-        <img
-          class="plantCardImg"
-          src="https://www.baumpflegeportal.de/wp-content/uploads/2016/05/160509_Starke-Baumtypen_Eiche-im-Seidengewand_02.jpg"
-        />
+      <div :style="plantCard">
+        <img :src="plant.picture" class="plantCardImg" />
         <div class="plantCardImgOverlay">
-          <p>BAUM</p>
+          <p>{{ plant.name }}</p>
         </div>
       </div>
     </router-link>
@@ -30,6 +26,8 @@ export default {
     plantId: Number,
   },
   data() {
+    const data = require("../data/plants.json");
+    this.plant = data.plant[this.plantId];
     var height;
     if (this.useSmall == true) {
       height = "150px";
@@ -54,6 +52,10 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.plantCard {
+  width: 300px;
+}
+
 .plantCardImg {
   min-height: 100%;
   min-width: 100%;
