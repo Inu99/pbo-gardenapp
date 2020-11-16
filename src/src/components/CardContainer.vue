@@ -1,19 +1,20 @@
 <!-- 
-      example usage: <CardContainer title="meine Planzen" plantIds="[1,2,5,64]" isVertical />
+      example usage: <CardContainer title="meine Planzen" plantIds="[1,2,5,64]" isVertical cardSize="small"/>
 
-      TODO:   - check if user is logged in
-              - log user in/out
+      TODO:   - switch between vertical and horizontal scroll depending on isVertical
+
 -->
 
 <template>
-  <div>
-    <p class="text-left mb-0">
+  <div class="mx-2 mt-4">
+    <p class="text-left mb-0 ml-1 h4 font-weight-bold">
       {{ title }}
     </p>
     <div class="card p-1">
       <div class="scrollmenu">
-        <a v-for="plantId in plantIds" v-bind:key="plantId">
-          <PlantCard v-bind:useSmall="true" v-bind:plantId="plantId" />
+        <!-- show plant cards -->
+        <a v-for="plantId in plantIds" v-bind:key="plantId" class="m-2">
+          <PlantCard v-bind:useSmall="small" v-bind:plantId="plantId" />
         </a>
       </div>
     </div>
@@ -21,7 +22,7 @@
 </template>
 
 <script>
-import { reactive, ref } from "vue";
+import { ref } from "vue";
 import PlantCard from "./PlantCard";
 
 export default {
@@ -33,8 +34,12 @@ export default {
     title: String,
     isVertical: Boolean,
     plantIds: Array,
+    cardSize: "large" | "small",
   },
-  setup(props) {},
+  setup(props) {
+    const small = ref(props.cardSize == "large" ? false : true);
+    return { small };
+  },
 
   methods: {},
 };
@@ -47,17 +52,11 @@ div.scrollmenu {
   white-space: nowrap;
 }
 
-/* div.scrollmenu a {
+div.scrollmenu a {
   display: inline-block;
-  color: white;
-  text-align: center;
-  padding: 14px;
+  /* padding: 14px; */
   text-decoration: none;
 }
-
-div.scrollmenu a:hover {
-  background-color: black;
-} */
 
 div.scrollmenu::-webkit-scrollbar {
   width: 0.5em;
