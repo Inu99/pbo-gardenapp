@@ -1,5 +1,13 @@
+<!-- 
+      example usage: <Header pageName="Willkommen" userId="1337" />
+
+      TODO:   - check if user is logged in
+              - log user in/out
+-->
+
 <template>
   <nav class="navbar navbar-expand navbar-light bg-light">
+    <!-- navigate back btn -->
     <div class="btn-back">
       <i
         class="material-icons icons"
@@ -9,20 +17,25 @@
         arrow_back</i
       >
     </div>
+    <!-- title -->
     <div class="navbar-brand title">{{ pageName }}</div>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto"></ul>
       <form class="form-inline my-2 my-lg-0">
+        <!-- home btn -->
         <router-link v-if="bools.hasHomeBtn" to="/">
           <i class="material-icons icons">home</i>
         </router-link>
+        <!-- search btn -->
         <router-link v-if="bools.hasSearchBtn" to="/">
           <i class="material-icons icons">search</i>
         </router-link>
         <div class="dropdown">
+          <!-- user icon -->
           <button class="dropbtn bg-light">
             <i class="material-icons icons">account_circle</i>
           </button>
+          <!-- dropdown for user icon -->
           <div class="dropdown-content">
             <router-link
               to="{name:'Profile', params: {userId:userId}}"
@@ -57,6 +70,7 @@ export default {
     const isLoggedIn = ref(false);
     // check if user is Logged in
 
+    // check which page is shown
     switch (props.pageName) {
       case "Willkommen":
         // HomeScreen
