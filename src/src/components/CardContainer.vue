@@ -17,6 +17,7 @@
           <PlantCard v-bind:useSmall="small" v-bind:plantId="plantId" />
         </a>
       </div>
+      plants: {{ plants }}
     </div>
   </div>
 </template>
@@ -24,6 +25,8 @@
 <script>
 import { ref } from "vue";
 import PlantCard from "./PlantCard";
+import firebase from "../Firebase";
+// import "firebase/firestore";
 
 export default {
   name: "CardContainer",
@@ -34,14 +37,34 @@ export default {
     title: String,
     isVertical: Boolean,
     plantIds: Array,
-    cardSize: "large" | "small",
+    cardSize: {
+      type: String,
+      default: "small",
+    },
   },
   setup(props) {
     const small = ref(props.cardSize == "large" ? false : true);
     return { small };
   },
-
   methods: {},
+  data() {
+    return {
+      plants: [],
+      ref: firebase.firestore().collection("plants"),
+    };
+  },
+  created() {
+    this.ref.onSnapshot((querySnapshot) => {
+      this.plants = [];
+      querySnapshot.forEach((doc) => {
+        this.plants.push({
+          key: doc.id,
+          name: doc.data().name,
+          image_url: doc.data().image_url,
+        });
+      });
+    });
+  },
 };
 </script>
 
