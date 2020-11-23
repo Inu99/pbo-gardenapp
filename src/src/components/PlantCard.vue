@@ -77,7 +77,7 @@ export default {
 .plantCardImgOverlay {
   position: absolute;
   width: 100%;
-  height: 45%;
+  height: 80px;
   background: linear-gradient(
     to top,
     rgba(0, 0, 0, 0.55) 50%,

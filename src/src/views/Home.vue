@@ -1,7 +1,18 @@
 <template>
   <div class="home">
     <Header pageName="Willkommen" :userId="7357" />
-    <CardContainer title="Mein Garten" :plantIds="plantIds" isVertical />
+    <CardContainer
+      title="Mein Garten"
+      :plantIds="plantIds"
+      isVertical
+      cardSize="large"
+    />
+    <CardContainer
+      title="Vorschläge"
+      :plantIds="plantIds"
+      isVertical
+      cardSize="small"
+    />
     <TagContainer :clickable="true" v-model="tagNames" />
     <br />
     checkedNames: {{ tagNames }}
@@ -19,7 +30,7 @@ export default {
   components: {
     Header,
     TagContainer,
-    PlantCard,
+    CardContainer,
   },
   data() {
     return {
@@ -27,9 +38,9 @@ export default {
         { name: "a", isChecked: false },
         { name: "aa", isChecked: false },
       ],
-      plantIds: [7357, 545, 46, 5, 7357, 545, 46, 5, 7357, 545, 46],
+      plantIds: [0, 1, 4, 3, 0, 2, 1, 0, 0, 0],
       checkedNames: [],
-    CardContainer,
+    };
   },
   methods: {
     showTags(choosenTags) {

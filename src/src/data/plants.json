@@ -7,6 +7,38 @@
             "tags": [
                 {}
             ]
+        },
+        {
+            "id": 1,
+            "name": "rote Johannisbeere",
+            "picture": "https://www.poetschke.de/out/pictures/master/product/1/431042-02-GPIE.jpg",
+            "tags": [
+                {}
+            ]
+        },
+        {
+            "id": 2,
+            "name": "schwarze Johannisbeere",
+            "picture": "https://www.ndr.de/ratgeber/garten/nutzpflanzen/johannisbeere102_v-contentgross.jpg",
+            "tags": [
+                {}
+            ]
+        },
+        {
+            "id": 3,
+            "name": "Möhre",
+            "picture": "https://www.ndr.de/fernsehen/sendungen/visite/moehren146_v-contentxl.jpg",
+            "tags": [
+                {}
+            ]
+        },
+        {
+            "id": 4,
+            "name": "Kürbis",
+            "picture": "https://image.brigitte.de/11630412/t/rC/v3/w1440/r1.5/-/kuerbiszeit-wann-beginnt-die-kuerbis-saison.jpg",
+            "tags": [
+                {}
+            ]
         }
     ]
 }
