@@ -33,3 +33,7 @@ neue Komponente begonnen: <br>
 CardContainer: <br>
 - Scroll-Schatten hinzugefügt
 - soweit fertig
+
+Firestore: <br>
+- erstellt und collections für plants und users angelegt
+- in code bei dem CardContainer angebunden
