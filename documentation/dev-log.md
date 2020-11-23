@@ -27,3 +27,9 @@ TagContainer fertig<br>
 
 neue Komponente begonnen: <br>
 - CardContainer
+
+## Date 23/11/20
+
+CardContainer: <br>
+- Scroll-Schatten hinzugefügt
+- soweit fertig

@@ -10,12 +10,14 @@
     <p class="text-left mb-0 ml-1 h4 font-weight-bold">
       {{ title }}
     </p>
-    <div class="card p-1">
-      <div class="scrollmenu">
-        <!-- show plant cards -->
-        <a v-for="plantId in plantIds" v-bind:key="plantId" class="m-2">
-          <PlantCard v-bind:useSmall="small" v-bind:plantId="plantId" />
-        </a>
+    <div class="scrollShadowLeft">
+      <div class="scrollShadowRight">
+        <div class="scrollmenu p-1">
+          <!-- show plant cards -->
+          <a v-for="plantId in plantIds" v-bind:key="plantId" class="m-2">
+            <PlantCard v-bind:useSmall="small" v-bind:plantId="plantId" />
+          </a>
+        </div>
       </div>
     </div>
   </div>
@@ -34,7 +36,10 @@ export default {
     title: String,
     isVertical: Boolean,
     plantIds: Array,
-    cardSize: "large" | "small",
+    cardSize: {
+      type: String,
+      default: "small",
+    },
   },
   setup(props) {
     const small = ref(props.cardSize == "large" ? false : true);
@@ -70,5 +75,42 @@ div.scrollmenu::-webkit-scrollbar-thumb {
 
 div.scrollmenu::-webkit-scrollbar-thumb:hover {
   background: #bababa;
+}
+
+.scrollShadowLeft {
+  position: relative;
+}
+.scrollShadowRight {
+  position: relative;
+}
+
+.scrollShadowLeft:after {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  right: 0;
+  background-image: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0),
+    rgba(255, 255, 255, 1)
+  );
+  width: 2%;
+  top: 0;
+  bottom: 0;
+}
+
+.scrollShadowRight:after {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  left: 0;
+  background-image: linear-gradient(
+    to left,
+    rgba(255, 255, 255, 0),
+    rgba(255, 255, 255, 1)
+  );
+  width: 2%;
+  top: 0;
+  bottom: 0;
 }
 </style>
