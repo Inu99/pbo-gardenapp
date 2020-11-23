@@ -29,6 +29,7 @@
           </a>
         </div>
       </div>
+      plants: {{ plants }}
     </div>
   </div>
 </template>
@@ -36,6 +37,8 @@
 <script>
 import { ref } from "vue";
 import PlantCard from "./PlantCard";
+import firebase from "../Firebase";
+// import "firebase/firestore";
 
 export default {
   name: "CardContainer",
@@ -59,8 +62,25 @@ export default {
     }
     return { small };
   },
-
   methods: {},
+  data() {
+    return {
+      plants: [],
+      ref: firebase.firestore().collection("plants"),
+    };
+  },
+  created() {
+    this.ref.onSnapshot((querySnapshot) => {
+      this.plants = [];
+      querySnapshot.forEach((doc) => {
+        this.plants.push({
+          key: doc.id,
+          name: doc.data().name,
+          image_url: doc.data().image_url,
+        });
+      });
+    });
+  },
 };
 </script>
 
