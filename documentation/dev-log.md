@@ -32,4 +32,12 @@ neue Komponente begonnen: <br>
 
 CardContainer: <br>
 - Scroll-Schatten hinzugefügt
+- wechsel zwischen horizontaler/ vertikaler ausrichtung
 - soweit fertig
+
+Nutzer View: <br>
+- angefangen
+- neue UserInfo komponente begonnen
+
+UserInfo: <br>
+- styling begonnen
