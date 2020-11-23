@@ -4,13 +4,13 @@
     <CardContainer
       title="Mein Garten"
       :plantIds="plantIds"
-      isVertical
+      isHorizontal
       cardSize="large"
     />
     <CardContainer
       title="Vorschläge"
       :plantIds="plantIds"
-      isVertical
+      isHorizontal
       cardSize="small"
     />
     <TagContainer :clickable="true" v-model="tagNames" />

@@ -1,5 +1,8 @@
 <!-- 
       example usage: <Header pageName="Willkommen" userId="1337" />
+      props:
+        - pageName: String  -> displayed title, possible values: Willkommen, Nutzer, Planze, Suche, Anlegen
+        - userId  : Number  -> indicates which user is logged in
 
       TODO:   - check if user is logged in
               - log user in/out
@@ -37,10 +40,7 @@
           </button>
           <!-- dropdown for user icon -->
           <div class="dropdown-content">
-            <router-link
-              to="{name:'Profile', params: {userId:userId}}"
-              v-if="isLoggedIn"
-            >
+            <router-link to="/user/12" v-if="isLoggedIn">
               Mein Profil
             </router-link>
             <a href="#" v-if="isLoggedIn" @click="doLogout">Logout</a>
@@ -67,7 +67,7 @@ export default {
       hasSearchBtn: true,
       hasHomeBtn: true,
     });
-    const isLoggedIn = ref(false);
+    const isLoggedIn = ref(true);
     // check if user is Logged in
 
     // check which page is shown
