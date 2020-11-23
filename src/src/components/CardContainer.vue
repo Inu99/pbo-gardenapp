@@ -1,8 +1,14 @@
 <!-- 
-      example usage: <CardContainer title="meine Planzen" plantIds="[1,2,5,64]" isVertical cardSize="small"/>
+      example usage: <CardContainer title="meine Planzen" plantIds="[1,2,5,64]" isHorizontal cardSize="small"/>
+      porps:
+        - title       : String  -> displayed above container
+        - isHorizontal: boolean -> indicates horizontal orientation
+        - plantIds    : Array   -> list of displayed plants
+        - cardSize    : String  -> can be large or small
+        - userId      : Number  -> to load specific plants for user
 
-      TODO:   - switch between vertical and horizontal scroll depending on isVertical
-
+      TODO:
+        - load specific plants if user id is provided
 -->
 
 <template>
@@ -10,13 +16,20 @@
     <p class="text-left mb-0 ml-1 h4 font-weight-bold">
       {{ title }}
     </p>
-    <div class="card p-1">
-      <div class="scrollmenu">
-        <!-- show plant cards -->
-        <a v-for="plantId in plantIds" v-bind:key="plantId" class="m-2">
-          <PlantCard v-bind:useSmall="small" v-bind:plantId="plantId" />
-        </a>
+    <div v-bind:class="isHorizontal ? 'scrollShadowLeft' : ''">
+      <div v-bind:class="isHorizontal ? 'scrollShadowRight' : ''">
+        <div v-bind:class="isHorizontal ? 'p-1 scrollmenu' : 'p-1'">
+          <!-- show plant cards -->
+          <a
+            v-for="plantId in plantIds"
+            v-bind:key="plantId"
+            v-bind:class="isHorizontal ? 'm-2' : 'm-2 item'"
+          >
+            <PlantCard v-bind:useSmall="small" v-bind:plantId="plantId" />
+          </a>
+        </div>
       </div>
+      plants: {{ plants }}
     </div>
   </div>
 </template>
@@ -24,6 +37,8 @@
 <script>
 import { ref } from "vue";
 import PlantCard from "./PlantCard";
+import firebase from "../Firebase";
+// import "firebase/firestore";
 
 export default {
   name: "CardContainer",
@@ -32,16 +47,40 @@ export default {
   },
   props: {
     title: String,
-    isVertical: Boolean,
+    isHorizontal: Boolean,
     plantIds: Array,
-    cardSize: "large" | "small",
+    cardSize: {
+      type: String,
+      default: "small",
+    },
+    userId: Number,
   },
   setup(props) {
     const small = ref(props.cardSize == "large" ? false : true);
+    if (props.userId) {
+      // load plants for user
+    }
     return { small };
   },
-
   methods: {},
+  data() {
+    return {
+      plants: [],
+      ref: firebase.firestore().collection("plants"),
+    };
+  },
+  created() {
+    this.ref.onSnapshot((querySnapshot) => {
+      this.plants = [];
+      querySnapshot.forEach((doc) => {
+        this.plants.push({
+          key: doc.id,
+          name: doc.data().name,
+          image_url: doc.data().image_url,
+        });
+      });
+    });
+  },
 };
 </script>
 
@@ -70,5 +109,46 @@ div.scrollmenu::-webkit-scrollbar-thumb {
 
 div.scrollmenu::-webkit-scrollbar-thumb:hover {
   background: #bababa;
+}
+
+.item {
+  display: inline-block;
+}
+
+.scrollShadowLeft {
+  position: relative;
+}
+.scrollShadowRight {
+  position: relative;
+}
+
+.scrollShadowLeft:after {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  right: 0;
+  background-image: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0),
+    rgba(255, 255, 255, 1)
+  );
+  width: 2%;
+  top: 0;
+  bottom: 0;
+}
+
+.scrollShadowRight:after {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  left: 0;
+  background-image: linear-gradient(
+    to left,
+    rgba(255, 255, 255, 0),
+    rgba(255, 255, 255, 1)
+  );
+  width: 2%;
+  top: 0;
+  bottom: 0;
 }
 </style>

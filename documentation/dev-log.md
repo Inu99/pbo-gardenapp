@@ -27,3 +27,13 @@ TagContainer fertig<br>
 
 neue Komponente begonnen: <br>
 - CardContainer
+
+## Date 23/11/20
+
+CardContainer: <br>
+- Scroll-Schatten hinzugefügt
+- soweit fertig
+
+Firestore: <br>
+- erstellt und collections für plants und users angelegt
+- in code bei dem CardContainer angebunden
