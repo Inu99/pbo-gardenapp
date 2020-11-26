@@ -41,3 +41,13 @@ Nutzer View: <br>
 
 UserInfo: <br>
 - styling begonnen
+
+Firestore: <br>
+- erstellt und collections für plants und users angelegt
+- in code bei dem CardContainer angebunden
+
+PlantCard <br>
+- Schattenhöhe angepasst
+
+PflanzenView <br>
+- Header hinzugefügt
