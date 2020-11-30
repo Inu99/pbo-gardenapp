@@ -57,3 +57,7 @@ PflanzenView <br>
 Datenbank anbindung: <br>
 - UserView lädt jetzt die Daten für den eingeloggten Nutzer
 - CardContainer lädt dem Nutzer zugewiesene Pflanzen oder alle 
+
+Calendar erstellung: <br>
+- Libraries wie Ant design, Element UI und primevue probiert (kein Erfolg)
+- Ziel für die nächste Woche einen Calendar vom Anfang an zu bauen 
