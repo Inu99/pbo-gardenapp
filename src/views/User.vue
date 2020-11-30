@@ -26,7 +26,7 @@
 import Header from "@/components/Header.vue";
 import CardContainer from "@/components/CardContainer.vue";
 import UserInfo from "@/components/UserInfo.vue";
-import { ref } from "vue";
+// import { ref } from "vue";
 
 export default {
   name: "User",

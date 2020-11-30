@@ -3,16 +3,11 @@
     <Header pageName="Willkommen" :userId="7357" />
     <CardContainer
       title="Mein Garten"
-      :plantIds="plantIds"
       isHorizontal
       cardSize="large"
+      userId="aUZv9PhWLXdFdoPpNHCc"
     />
-    <CardContainer
-      title="Vorschläge"
-      :plantIds="plantIds"
-      isHorizontal
-      cardSize="small"
-    />
+    <CardContainer title="Vorschläge" isHorizontal cardSize="small" />
     <TagContainer :clickable="true" v-model="tagNames" />
     <br />
     checkedNames: {{ tagNames }}

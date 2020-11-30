@@ -7,9 +7,9 @@
 
 <template>
   <div class="plantCard">
-    <router-link :to="{ name: 'PflanzenView', params: { plantId: plantId } }">
+    <router-link :to="{ name: 'PflanzenView', params: { plantId: plant.id } }">
       <div :style="plantCard">
-        <img :src="plant.picture" class="plantCardImg" />
+        <img :src="plant.imageUrl" class="plantCardImg" />
         <div class="plantCardImgOverlay">
           <p>{{ plant.name }}</p>
         </div>
@@ -23,11 +23,9 @@ export default {
   name: "PlantCard",
   props: {
     useSmall: Boolean,
-    plantId: Number,
+    plant: Object,
   },
   data() {
-    const data = require("../data/plants.json");
-    this.plant = data.plant[this.plantId];
     var height;
     if (this.useSmall == true) {
       height = "150px";

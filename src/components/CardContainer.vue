@@ -21,21 +21,20 @@
         <div v-bind:class="isHorizontal ? 'p-1 scrollmenu' : 'p-1'">
           <!-- show plant cards -->
           <a
-            v-for="plantId in plantIds"
-            v-bind:key="plantId"
+            v-for="plant in plants"
+            v-bind:key="plant.id"
             v-bind:class="isHorizontal ? 'm-2' : 'm-2 item'"
           >
-            <PlantCard v-bind:useSmall="small" v-bind:plantId="plantId" />
+            <PlantCard v-bind:useSmall="small" v-bind:plant="plant" />
           </a>
         </div>
       </div>
-      plants: {{ plants }}
     </div>
   </div>
 </template>
 
 <script>
-import { ref } from "vue";
+import { reactive, ref } from "vue";
 import PlantCard from "./PlantCard";
 import firebase from "../Firebase";
 // import "firebase/firestore";
@@ -48,12 +47,11 @@ export default {
   props: {
     title: String,
     isHorizontal: Boolean,
-    plantIds: Array,
     cardSize: {
       type: String,
       default: "small",
     },
-    userId: Number,
+    userId: String,
   },
   setup(props) {
     const small = ref(props.cardSize == "large" ? false : true);
@@ -62,24 +60,63 @@ export default {
     }
     return { small };
   },
-  methods: {},
+  methods: {
+    loadPlants: function (plantIds) {
+      const _this = this;
+      plantIds.forEach((plantId) => {
+        _this.plantsRef.where("id", "==", plantId).forEach((plant) => {
+          _this.plants.push({
+            id: doc.id,
+            name: doc.data().name,
+            imageUrl: doc.data().image_url,
+          });
+        });
+      });
+    },
+  },
   data() {
     return {
       plants: [],
-      ref: firebase.firestore().collection("plants"),
+      plantsRef: firebase.firestore().collection("plants"),
+      userRef: firebase.firestore().collection("users"),
+      loading: true,
     };
   },
-  created() {
-    this.ref.onSnapshot((querySnapshot) => {
+  async created() {
+    // loads all plants
+    this.plantsRef.onSnapshot((querySnapshot) => {
       this.plants = [];
       querySnapshot.forEach((doc) => {
         this.plants.push({
-          key: doc.id,
+          id: doc.id,
           name: doc.data().name,
-          image_url: doc.data().image_url,
+          imageUrl: doc.data().image_url,
         });
       });
     });
+
+    if (this.$props.userId) {
+      console.log("ID IS DAAAA");
+      // load plants for user
+      let userPlantIds = [];
+
+      await this.userRef.onSnapshot((querySnapshot) => {
+        querySnapshot.forEach((user) => {
+          if (user.id == this.$props.userId) userPlantIds = user.data().plants;
+        });
+        console.log(userPlantIds);
+        this.loadPlants(userPlantIds);
+        // this.loading = false;
+      });
+
+      console.log(userPlantIds);
+
+      console.log(this.plants);
+    } else {
+      // load all plants
+      console.log("NOPE");
+    }
+    console.log("CREATED");
   },
 };
 </script>
