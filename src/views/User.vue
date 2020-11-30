@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Header pageName="Nutzer" :userId="parseInt($route.params.id)" />
+    <Header pageName="Nutzer" :userId="$route.params.id" />
     <div class="container">
       <div class="row">
         <div class="col-xl">
@@ -9,12 +9,12 @@
             title="Mein Garten"
             :plantIds="plantIds"
             cardSize="large"
-            :userId="parseInt($route.params.id)"
+            :userId="$route.params.id"
           />
         </div>
         <div class="col-xl-3">
           <!-- user info -->
-          <UserInfo :userId="parseInt($route.params.id)" />
+          <UserInfo :userId="$route.params.id" />
         </div>
       </div>
     </div>
@@ -42,7 +42,6 @@ export default {
   },
   created() {
     // load User info
-    console.log(this.$route.params.id);
   },
 };
 </script>
