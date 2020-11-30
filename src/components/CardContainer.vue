@@ -90,7 +90,6 @@ export default {
         querySnapshot.forEach((user) => {
           if (user.id == this.$props.userId) userPlantIds = user.data().plants;
         });
-        console.log(userPlantIds);
         let userPlants = [];
         userPlantIds.forEach((id) => {
           let buff = this.plants.filter((plant) => plant.id == id);

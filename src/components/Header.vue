@@ -40,7 +40,7 @@
           </button>
           <!-- dropdown for user icon -->
           <div class="dropdown-content">
-            <router-link to="/user/12" v-if="isLoggedIn">
+            <router-link :to="`/user/${userId}`" v-if="isLoggedIn">
               Mein Profil
             </router-link>
             <a href="#" v-if="isLoggedIn" @click="doLogout">Logout</a>
@@ -59,7 +59,7 @@ export default {
   name: "Header",
   props: {
     pageName: String,
-    userId: Number,
+    userId: String,
   },
   setup(props) {
     const bools = reactive({

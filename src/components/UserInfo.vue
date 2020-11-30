@@ -15,11 +15,22 @@
       alt="User Icon"
     />
     <div class="card-body">
-      <h5 class="card-title">UserId: {{ userId }}</h5>
-      <ul class="list-group list-group-flush">
-        <li class="list-group-item">Name:{{ name }}</li>
-        <li class="list-group-item">Alter:{{ age }}</li>
-        <li class="list-group-item">Ort:{{ location }}</li>
+      <h5 class="card-title">Meine Daten</h5>
+      <ul class="list-group list-group-flush container">
+        <div class="row">
+          <div class="col">Name</div>
+          <div class="col">{{ user.name }}</div>
+        </div>
+        <div class="dropdown-divider" />
+        <div class="row">
+          <div class="col">Alter</div>
+          <div class="col">{{ user.age }}</div>
+        </div>
+        <div class="dropdown-divider" />
+        <div class="row">
+          <div class="col">Ort</div>
+          <div class="col">{{ user.location }}</div>
+        </div>
       </ul>
     </div>
   </div>
@@ -27,20 +38,36 @@
 
 <script>
 // @ is an alias to /src
-import { reactive } from "vue";
+import firebase from "../Firebase";
 
 export default {
   name: "UserInfo",
   components: {},
   props: {
-    userId: Number,
+    userId: String,
   },
-  setup() {
-    //   Load User infos
-    return reactive({
-      name: "Anna",
-      age: 43,
-      location: "Dresden",
+  data() {
+    return {
+      user: [],
+      userRef: firebase.firestore().collection("users"),
+    };
+  },
+  created() {
+    //   Load all User infos
+
+    let users = [];
+    this.userRef.onSnapshot((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        users.push({
+          id: doc.id,
+          name: doc.data().name,
+          location: doc.data().location,
+          age: doc.data().age,
+        });
+      });
+      // filter for user id
+      const filtered = users.filter((user) => user.id == this.$props.userId);
+      this.user = filtered[0];
     });
   },
 };

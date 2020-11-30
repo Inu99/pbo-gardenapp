@@ -1,11 +1,11 @@
 <template>
   <div class="home">
-    <Header pageName="Willkommen" :userId="7357" />
+    <Header pageName="Willkommen" :userId="loggedInUserId" />
     <CardContainer
       title="Mein Garten"
       isHorizontal
       cardSize="large"
-      userId="aUZv9PhWLXdFdoPpNHCc"
+      :userId="loggedInUserId"
     />
     <CardContainer title="Vorschläge" isHorizontal cardSize="small" />
     <TagContainer :clickable="true" v-model="tagNames" />
@@ -33,7 +33,7 @@ export default {
         { name: "a", isChecked: false },
         { name: "aa", isChecked: false },
       ],
-      plantIds: [0, 1, 4, 3, 0, 2, 1, 0, 0, 0],
+      loggedInUserId: "aUZv9PhWLXdFdoPpNHCc",
       checkedNames: [],
     };
   },
