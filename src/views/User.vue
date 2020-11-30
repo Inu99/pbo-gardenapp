@@ -15,6 +15,7 @@
         <div class="col-xl-3">
           <!-- user info -->
           <UserInfo :userId="parseInt($route.params.id)" />
+          <PlantCalendar :plants="plantIds" />
         </div>
       </div>
     </div>
@@ -26,6 +27,7 @@
 import Header from "@/components/Header.vue";
 import CardContainer from "@/components/CardContainer.vue";
 import UserInfo from "@/components/UserInfo.vue";
+import PlantCalendar from "@/components/PlantCalendar.vue";
 // import { ref } from "vue";
 
 export default {
@@ -34,6 +36,7 @@ export default {
     Header,
     CardContainer,
     UserInfo,
+    PlantCalendar,
   },
   data() {
     return {
