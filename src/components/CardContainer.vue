@@ -34,7 +34,7 @@
 </template>
 
 <script>
-import { reactive, ref } from "vue";
+import { ref } from "vue";
 import PlantCard from "./PlantCard";
 import firebase from "../Firebase";
 // import "firebase/firestore";

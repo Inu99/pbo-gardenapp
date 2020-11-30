@@ -27,7 +27,7 @@
 
 <script>
 // @ is an alias to /src
-import { reactive, ref } from "vue";
+import { reactive } from "vue";
 
 export default {
   name: "UserInfo",
@@ -35,7 +35,7 @@ export default {
   props: {
     userId: Number,
   },
-  setup(props) {
+  setup() {
     //   Load User infos
     return reactive({
       name: "Anna",
