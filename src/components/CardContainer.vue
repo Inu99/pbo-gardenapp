@@ -60,20 +60,7 @@ export default {
     }
     return { small };
   },
-  methods: {
-    loadPlants: function (plantIds) {
-      const _this = this;
-      plantIds.forEach((plantId) => {
-        _this.plantsRef.where("id", "==", plantId).forEach((plant) => {
-          _this.plants.push({
-            id: doc.id,
-            name: doc.data().name,
-            imageUrl: doc.data().image_url,
-          });
-        });
-      });
-    },
-  },
+  methods: {},
   data() {
     return {
       plants: [],
@@ -96,27 +83,22 @@ export default {
     });
 
     if (this.$props.userId) {
-      console.log("ID IS DAAAA");
       // load plants for user
       let userPlantIds = [];
 
-      await this.userRef.onSnapshot((querySnapshot) => {
+      this.userRef.onSnapshot((querySnapshot) => {
         querySnapshot.forEach((user) => {
           if (user.id == this.$props.userId) userPlantIds = user.data().plants;
         });
         console.log(userPlantIds);
-        this.loadPlants(userPlantIds);
-        // this.loading = false;
+        let userPlants = [];
+        userPlantIds.forEach((id) => {
+          let buff = this.plants.filter((plant) => plant.id == id);
+          userPlants.push(buff[0]);
+        });
+        this.plants = userPlants;
       });
-
-      console.log(userPlantIds);
-
-      console.log(this.plants);
-    } else {
-      // load all plants
-      console.log("NOPE");
     }
-    console.log("CREATED");
   },
 };
 </script>
