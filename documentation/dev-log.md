@@ -51,3 +51,9 @@ PlantCard <br>
 
 PflanzenView <br>
 - Header hinzugefügt
+
+## Date 30/11/20
+
+Datenbank anbindung: <br>
+- UserView lädt jetzt die Daten für den eingeloggten Nutzer
+- CardContainer lädt dem Nutzer zugewiesene Pflanzen oder alle 
