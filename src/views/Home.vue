@@ -1,16 +1,20 @@
 <template>
   <div class="home">
-    <Header pageName="Willkommen" :userId="loggedInUserId" />
+    <Header
+      pageName="Willkommen"
+      :userId="this.$store.getters.getLoggedInUser"
+    />
     <CardContainer
       title="Mein Garten"
       isHorizontal
       cardSize="large"
-      :userId="loggedInUserId"
+      :userId="this.$store.getters.getLoggedInUser"
     />
     <CardContainer title="Vorschläge" isHorizontal cardSize="small" />
     <TagContainer :clickable="true" v-model="tagNames" />
     <br />
-    checkedNames: {{ tagNames }}
+    checkedNames: {{ tagNames }} loggedInUser:
+    {{ this.$store.getters.getLoggedInUser }}
   </div>
 </template>
 
