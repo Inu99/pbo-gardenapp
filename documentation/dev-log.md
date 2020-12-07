@@ -70,3 +70,6 @@ Calendar erstellung: <br>
 
 - Calendar angefangen
 - login Funktionalität eingebaut
+
+- PlantView inhalte hinzugefügt
+- Header Methode zum Setzen des Titels zugefügt
