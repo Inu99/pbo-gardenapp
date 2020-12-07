@@ -8,6 +8,7 @@
         - userId      : Number  -> to load specific plants for user
 
       TODO:
+        - refresh if userId changes
 -->
 
 <template>
