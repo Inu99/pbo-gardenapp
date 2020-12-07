@@ -61,3 +61,10 @@ Datenbank anbindung: <br>
 Calendar erstellung: <br>
 - Libraries wie Ant design, Element UI und primevue probiert (kein Erfolg)
 - Ziel für die nächste Woche einen Calendar vom Anfang an zu bauen 
+
+
+## Date 07/12/20
+
+- Veux store angebunden
+- login modal erstellt
+- login Funktionalität eingebaut
