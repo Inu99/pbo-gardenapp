@@ -8,7 +8,6 @@
         - userId      : Number  -> to load specific plants for user
 
       TODO:
-        - load specific plants if user id is provided
 -->
 
 <template>
@@ -37,7 +36,6 @@
 import { ref } from "vue";
 import PlantCard from "./PlantCard";
 import firebase from "../Firebase";
-// import "firebase/firestore";
 
 export default {
   name: "CardContainer",
