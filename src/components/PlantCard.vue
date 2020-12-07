@@ -7,7 +7,8 @@
 
 <template>
   <div class="plantCard">
-    <router-link :to="{ name: 'PflanzenView', params: { plantId: plant.id } }">
+    <!--    <router-link :to="{ name: 'PflanzenView', params: { plant: plant } }"> -->
+    <router-link :to="'/pflanzenview/' + plant.id">
       <div :style="plantCard">
         <img :src="plant.imageUrl" class="plantCardImg" />
         <div class="plantCardImgOverlay">
@@ -25,6 +26,7 @@ export default {
     useSmall: Boolean,
     plant: Object,
   },
+
   data() {
     var height;
     if (this.useSmall == true) {

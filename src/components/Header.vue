@@ -21,7 +21,7 @@
       >
     </div>
     <!-- title -->
-    <div class="navbar-brand title">{{ pageName }}</div>
+    <div id="header_title" class="navbar-brand title">{{ pageName }}</div>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto"></ul>
       <form class="form-inline my-2 my-lg-0">
@@ -98,6 +98,10 @@ export default {
     doLogin() {
       // login the User
       console.log("Login not implemented.");
+    },
+    setHeaderText(string) {
+      console.log("SET HEADER TEXT CALLED: " + string);
+      document.getElementById("header_title").textContent = string;
     },
   },
 };
