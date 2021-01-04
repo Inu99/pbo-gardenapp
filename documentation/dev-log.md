@@ -27,6 +27,10 @@ vuex Store:
 
     - Pflanzen jetzt aus Store laden in computed Variable
 
+PflanzenView:
+- Button Hinzugefügt, mit welchem ein Nutzer eine Pflanze seinem Garten hinzuzufügen kann
+- Einen Bug behoben, dass die Bilder der Pflanzen bei Ändern der Festergröße ihr Seitenverhältnis nicht behalten 
+
 ## Date 07/12/20
 
 - Veux store angebunden

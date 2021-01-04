@@ -1,8 +1,8 @@
 <!-- 
       simple view to display information about an plant with data from the database
 
-      TODO:   - prevent images from looking like sh*t on wider screens :)
-              - embed calendar for viewing dates 
+      TODO:  - embed calendar for viewing dates 
+             - functionallity of adding plants to your garden 
 -->
 
 <template>
@@ -93,9 +93,12 @@ export default {
       if (this.plant.name == undefined) {
         alert("Error: no plant found with id " + this.$route.params.id);
       } else {
+        // append events for the button for adding the plant in users garden
+        // TODO dont show if no user is logged in or show tick if plant already is "subscribed"
         document
           .getElementById("button_add_plant_to_own")
           .addEventListener("mouseover", function (event) {
+            // expand button, set text in button
             event.target.style.opacity = 1;
             event.target.style.width = "150px";
             document.getElementById(
@@ -106,6 +109,7 @@ export default {
         document
           .getElementById("button_add_plant_to_own")
           .addEventListener("mouseleave", function (event) {
+            // collapse button, set icon in button
             event.target.style.opacity = 0.5;
             event.target.style.width = "50px";
             document.getElementById(
