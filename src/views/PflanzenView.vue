@@ -15,6 +15,11 @@
     <div class="content">
       <div class="split_left left">
         <img :src="plant.imageUrl" />
+        <div id="button_add_plant_to_own">
+          <span id="button_add_plant_to_own_text"
+            ><i class="material-icons">add</i></span
+          >
+        </div>
       </div>
 
       <div class="split_right right">
@@ -88,6 +93,31 @@ export default {
       if (this.plant.name == undefined) {
         alert("Error: no plant found with id " + this.$route.params.id);
       } else {
+        document
+          .getElementById("button_add_plant_to_own")
+          .addEventListener("mouseover", function (event) {
+            event.target.style.opacity = 1;
+            event.target.style.width = "150px";
+            document.getElementById(
+              "button_add_plant_to_own_text"
+            ).textContent = "Pflanze Hinzufügen";
+          });
+
+        document
+          .getElementById("button_add_plant_to_own")
+          .addEventListener("mouseleave", function (event) {
+            event.target.style.opacity = 0.5;
+            event.target.style.width = "50px";
+            document.getElementById(
+              "button_add_plant_to_own_text"
+            ).textContent = "";
+            document.getElementById(
+              "button_add_plant_to_own_text"
+            ).style.width = "50px";
+            document.getElementById("button_add_plant_to_own_text").innerHTML =
+              '<i class="material-icons">add</i>';
+          });
+
         this.setLabels();
       }
     });
@@ -178,6 +208,40 @@ export default {
   border-radius: 10px;
   width: 100%;
   height: auto;
+}
+
+.split_left div {
+  background: grey;
+  opacity: 50%;
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  top: 5%;
+  right: 5%;
+  margin-left: auto;
+  margin-right: 0;
+  border-radius: 10px;
+  transition: width 1s ease;
+  text-align: center;
+  line-height: 50px;
+  animation-fill-mode: both;
+}
+
+.split_left div span {
+  display: inline-block;
+  vertical-align: middle;
+  line-height: normal;
+  position: relative;
+  color: white;
+}
+
+.split_left div i {
+  display: inline-block;
+  vertical-align: right;
+  line-height: normal;
+  position: relative;
+  color: white;
+  animation-fill-mode: both;
 }
 
 .content {
