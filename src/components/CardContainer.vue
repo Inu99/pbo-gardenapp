@@ -1,11 +1,10 @@
 <!-- 
-      example usage: <CardContainer title="meine Planzen" plantIds="[1,2,5,64]" isHorizontal cardSize="small"/>
+      example usage: <CardContainer title="Mein Garten" userId="2345sfd34" isHorizontal cardSize="small"/>
       porps:
         - title       : String  -> displayed above container
         - isHorizontal: boolean -> indicates horizontal orientation
-        - plantIds    : Array   -> list of displayed plants
         - cardSize    : String  -> can be large or small
-        - userId      : Number  -> to load specific plants for user
+        - userId      : String  -> to load specific plants for user
 
 -->
 

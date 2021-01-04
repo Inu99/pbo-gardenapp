@@ -14,6 +14,19 @@ Projektstruktur:
 
 - index.js in /store und /router umbenannt
 
+### normale Arbeit
+
+vuex Store:
+
+- Pflanzen eines Nutzers werden jetzt beim einloggen geladen und im Store gespeichert
+- entsprechende Anpassungen in Header:
+
+    - laden der Pflanzen beim einloggen
+
+- Anpassung in CardContainer:
+
+    - Pflanzen jetzt aus Store laden in computed Variable
+
 ## Date 07/12/20
 
 - Veux store angebunden
