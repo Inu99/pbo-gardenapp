@@ -2,7 +2,7 @@
       example usage: <TagContainer :clickable="true" v-model="tagNames" />
       props:
         - clickable : Boolean -> if tags can be choosen
-        - tagNames : Array -> names of tags that are going to be displayed
+        - tagNames  : Array   -> names of tags that are going to be displayed
 -->
 <template>
   <div class="tagcloud01">

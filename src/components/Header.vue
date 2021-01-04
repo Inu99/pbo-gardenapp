@@ -36,7 +36,7 @@
               v-model="username"
             />
             <input
-              type="text"
+              type="password"
               class="form-control"
               placeholder="Password"
               aria-label="Password"
