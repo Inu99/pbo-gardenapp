@@ -177,7 +177,7 @@ export default {
 .split_left img {
   border-radius: 10px;
   width: 100%;
-  height: 100%;
+  height: auto;
 }
 
 .content {
