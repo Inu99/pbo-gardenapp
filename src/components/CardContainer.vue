@@ -1,14 +1,11 @@
 <!-- 
-      example usage: <CardContainer title="meine Planzen" plantIds="[1,2,5,64]" isHorizontal cardSize="small"/>
+      example usage: <CardContainer title="Mein Garten" userId="2345sfd34" isHorizontal cardSize="small"/>
       porps:
         - title       : String  -> displayed above container
         - isHorizontal: boolean -> indicates horizontal orientation
-        - plantIds    : Array   -> list of displayed plants
         - cardSize    : String  -> can be large or small
-        - userId      : Number  -> to load specific plants for user
+        - userId      : String  -> to load specific plants for user
 
-      TODO:
-        - refresh if userId changes
 -->
 
 <template>
@@ -36,7 +33,6 @@
 <script>
 import { ref } from "vue";
 import PlantCard from "./PlantCard";
-import firebase from "../Firebase";
 
 export default {
   name: "CardContainer",
@@ -54,49 +50,16 @@ export default {
   },
   setup(props) {
     const small = ref(props.cardSize == "large" ? false : true);
-    if (props.userId) {
-      // load plants for user
-    }
     return { small };
   },
-  methods: {},
-  data() {
-    return {
-      plants: [],
-      plantsRef: firebase.firestore().collection("plants"),
-      userRef: firebase.firestore().collection("users"),
-      loading: true,
-    };
-  },
-  async created() {
-    // loads all plants
-    this.plantsRef.onSnapshot((querySnapshot) => {
-      this.plants = [];
-      querySnapshot.forEach((doc) => {
-        this.plants.push({
-          id: doc.id,
-          name: doc.data().name,
-          imageUrl: doc.data().image_url,
-        });
-      });
-    });
-
-    if (this.$props.userId) {
-      // load plants for user
-      let userPlantIds = [];
-
-      this.userRef.onSnapshot((querySnapshot) => {
-        querySnapshot.forEach((user) => {
-          if (user.id == this.$props.userId) userPlantIds = user.data().plants;
-        });
-        let userPlants = [];
-        userPlantIds.forEach((id) => {
-          let buff = this.plants.filter((plant) => plant.id == id);
-          userPlants.push(buff[0]);
-        });
-        this.plants = userPlants;
-      });
-    }
+  computed: {
+    plants() {
+      if (this.$props.userId) {
+        return this.$store.getters.userPlants;
+      } else {
+        return this.$store.getters.allPlants;
+      }
+    },
   },
 };
 </script>

@@ -36,7 +36,7 @@
               v-model="username"
             />
             <input
-              type="text"
+              type="password"
               class="form-control"
               placeholder="Password"
               aria-label="Password"
@@ -139,7 +139,7 @@ export default {
   methods: {
     doLogout() {
       // logout the User
-      this.$store.commit("setLoggedInUser", 0);
+      this.$store.commit("setLoggedInUser", "0");
       this.isLoggedIn = false;
     },
     doLogin() {
@@ -158,6 +158,8 @@ export default {
           }
         });
       });
+
+      this.$store.dispatch("fetchUserPlants");
     },
     setHeaderText(string) {
       console.log("SET HEADER TEXT CALLED: " + string);

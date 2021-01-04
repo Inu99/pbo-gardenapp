@@ -1,67 +1,31 @@
 # In diesem Dokument kann man eine chronologische Entwicklung der App sehen.
 
-## Date 02/11/20
-### Aufteilung den Komponenten.
-### Drei je für einen Gruppenmitglied:
+## Date 04/01/21
 
-- Header
-- TagContainer
-- PflanzenKarte
+### Code Review Änderungen
 
-## Date 09/11/20
-### Die oben genannten Komponenten fertigmachen. <br>
-### Header Komponente fertig:
-    verschiedene Darstellungen für die Seiten, Dropdown Menu für Nutzer Icon
+Projektdoku aktualisiert:
 
-### CloudTag Komponente weiterentwickelt:
-    style und funktionalität fertig, fehlt noch emit nach oben
+- Komponenten beschreibung eingefügt
+- konsenstente Namen
+- Anforderungen angepasst
 
-### Pflanzenkarte weiterentwickelt:
-    CSS für responsive Größe implementiert
-    bei Klick weiterleitung an eine (bisher prototypisch implementierte) PflanzenView, mit Übergabe der PflanzenID
+Projektstruktur:
 
-## Date 16/11/20
-erste Code Review: <br>
-TagContainer fertig<br>
+- index.js in /store und /router umbenannt
 
+### normale Arbeit
 
-neue Komponente begonnen: <br>
-- CardContainer
+vuex Store:
 
-## Date 23/11/20
+- Pflanzen eines Nutzers werden jetzt beim einloggen geladen und im Store gespeichert
+- entsprechende Anpassungen in Header:
 
-CardContainer: <br>
-- Scroll-Schatten hinzugefügt
-- wechsel zwischen horizontaler/ vertikaler ausrichtung
-- soweit fertig
+    - laden der Pflanzen beim einloggen
 
-Nutzer View: <br>
-- angefangen
-- neue UserInfo komponente begonnen
+- Anpassung in CardContainer:
 
-UserInfo: <br>
-- styling begonnen
-
-Firestore: <br>
-- erstellt und collections für plants und users angelegt
-- in code bei dem CardContainer angebunden
-
-PlantCard <br>
-- Schattenhöhe angepasst
-
-PflanzenView <br>
-- Header hinzugefügt
-
-## Date 30/11/20
-
-Datenbank anbindung: <br>
-- UserView lädt jetzt die Daten für den eingeloggten Nutzer
-- CardContainer lädt dem Nutzer zugewiesene Pflanzen oder alle 
-
-Calendar erstellung: <br>
-- Libraries wie Ant design, Element UI und primevue probiert (kein Erfolg)
-- Ziel für die nächste Woche einen Calendar vom Anfang an zu bauen 
-
+    - Pflanzen jetzt aus Store laden in computed Variable
 
 ## Date 07/12/20
 
@@ -73,3 +37,81 @@ Calendar erstellung: <br>
 
 - PlantView inhalte hinzugefügt
 - Header Methode zum Setzen des Titels zugefügt
+
+## Date 30/11/20
+
+Datenbank anbindung:
+
+- UserView lädt jetzt die Daten für den eingeloggten Nutzer
+- CardContainer lädt dem Nutzer zugewiesene Pflanzen oder alle 
+
+Calendar erstellung:
+
+- Libraries wie Ant design, Element UI und primevue probiert (kein Erfolg)
+- Ziel für die nächste Woche einen Calendar vom Anfang an zu bauen 
+
+## Date 23/11/20
+
+CardContainer:
+
+- Scroll-Schatten hinzugefügt
+- wechsel zwischen horizontaler/ vertikaler ausrichtung
+- soweit fertig
+
+Nutzer View:
+
+- angefangen
+- neue UserInfo komponente begonnen
+
+UserInfo:
+
+- styling begonnen
+
+Firestore:
+
+- erstellt und collections für plants und users angelegt
+- in code bei dem CardContainer angebunden
+
+PlantCard:
+
+- Schattenhöhe angepasst
+
+PflanzenView:
+
+- Header hinzugefügt
+
+## Date 16/11/20
+
+erste Code Review:
+
+- TagContainer fertig
+
+neue Komponente begonnen:
+
+- CardContainer
+
+## Date 09/11/20
+
+Die oben genannten Komponenten fertigmachen.<br>
+
+Header Komponente fertig:
+
+- verschiedene Darstellungen für die Seiten, Dropdown Menu für Nutzer Icon
+
+CloudTag Komponente weiterentwickelt:
+
+- style und funktionalität fertig, fehlt noch emit nach oben
+
+Pflanzenkarte weiterentwickelt:
+
+- CSS für responsive Größe implementiert
+- bei Klick weiterleitung an eine (bisher prototypisch implementierte) PflanzenView, mit Übergabe der PflanzenID
+
+## Date 02/11/20
+
+Aufteilung den Komponenten. <br>
+Drei je für einen Gruppenmitglied:
+
+- Header
+- TagContainer
+- PflanzenKarte
