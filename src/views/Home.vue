@@ -47,5 +47,8 @@ export default {
       this.checkedNames = choosenTags;
     },
   },
+  mounted() {
+    this.$store.dispatch("fetchAllPlants");
+  },
 };
 </script>
