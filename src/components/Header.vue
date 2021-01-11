@@ -11,7 +11,7 @@
 <template>
   <nav class="navbar navbar-expand navbar-light bg-light">
     <!-- Login modal -->
-    <vue-final-modal v-model="showModal">
+    <vue-final-modal v-model="showLoginModal">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
@@ -21,7 +21,7 @@
               class="close"
               data-dismiss="modal"
               aria-label="Close"
-              @click="showModal = false"
+              @click="showLoginModal = false"
             >
               <span aria-hidden="true">&times;</span>
             </button>
@@ -47,6 +47,76 @@
           <div class="modal-footer">
             <button type="button" class="btn btn-primary" @click="doLogin">
               Login
+            </button>
+          </div>
+        </div>
+      </div>
+    </vue-final-modal>
+    <!-- Create new User modal -->
+    <vue-final-modal v-model="showCreateNewModal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">neuen Nutzer erstellen</h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+              @click="showCreateNewModal = false"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <input
+              type="text"
+              class="form-control mb-3"
+              placeholder="Username"
+              aria-label="Username"
+              aria-describedby="basic-addon1"
+              v-model="username"
+            />
+            <input
+              type="number"
+              class="form-control mb-3"
+              placeholder="Alter"
+              aria-label="Age"
+              aria-describedby="basic-addon1"
+              v-model="userAge"
+            />
+            <input
+              type="text"
+              class="form-control mb-3"
+              placeholder="Ort"
+              aria-label="Location"
+              aria-describedby="basic-addon1"
+              v-model="userLocation"
+            />
+            <input
+              type="password"
+              class="form-control mb-3"
+              placeholder="Password"
+              aria-label="Password"
+              aria-describedby="basic-addon1"
+              v-model="password"
+            />
+            <input
+              type="password"
+              class="form-control"
+              placeholder="Password"
+              aria-label="Password"
+              aria-describedby="basic-addon1"
+              v-model="passwordAgain"
+            />
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-primary"
+              @click="createNewUser"
+            >
+              erstellen
             </button>
           </div>
         </div>
@@ -86,7 +156,12 @@
               Mein Profil
             </router-link>
             <a href="#" v-if="isLoggedIn" @click="doLogout">Logout</a>
-            <a href="#" v-if="!isLoggedIn" @click="showModal = true">Login</a>
+            <a href="#" v-if="!isLoggedIn" @click="showLoginModal = true"
+              >Login</a
+            >
+            <a href="#" v-if="!isLoggedIn" @click="showCreateNewModal = true"
+              >neues Profil erstellen</a
+            >
           </div>
         </div>
       </form>
@@ -111,9 +186,13 @@ export default {
       hasHomeBtn: true,
     });
     const isLoggedIn = ref(props.userId == 0 ? false : true);
-    const showModal = ref(false);
+    const showLoginModal = ref(false);
+    const showCreateNewModal = ref(false);
     const username = ref("");
     const password = ref("");
+    const passwordAgain = ref("");
+    const userLocation = ref("");
+    const userAge = ref(0);
     // check if user is Logged in
 
     // check which page is shown
@@ -133,13 +212,23 @@ export default {
         break;
     }
 
-    return { bools, isLoggedIn, showModal, username, password };
+    return {
+      bools,
+      isLoggedIn,
+      showLoginModal,
+      showCreateNewModal,
+      username,
+      userAge,
+      userLocation,
+      password,
+      passwordAgain,
+    };
   },
 
   methods: {
     doLogout() {
       // logout the User
-      this.$store.commit("setLoggedInUser", "0");
+      this.$store.commit("logOutUser");
       this.isLoggedIn = false;
     },
     doLogin() {
@@ -153,13 +242,65 @@ export default {
             user.data().password == this.password
           ) {
             this.$store.commit("setLoggedInUser", user.id);
-            this.showModal = false;
+            this.showLoginModal = false;
             this.isLoggedIn = true;
           }
         });
       });
 
       this.$store.dispatch("fetchUserPlants");
+    },
+    async getAllUsers() {
+      const userRef = firebase.firestore().collection("users");
+      let allUsers = [];
+      return new Promise((resolve) => {
+        userRef.onSnapshot((querySnapshot) => {
+          querySnapshot.forEach((user) => {
+            allUsers.push({
+              id: user.id,
+              data: user.data(),
+            });
+          });
+          resolve(allUsers);
+        });
+      });
+    },
+    async createNewUser() {
+      console.log("Neuen nutzer erstellen");
+
+      const allUsers = await this.getAllUsers();
+      console.log(allUsers);
+      if (this.password != this.passwordAgain) {
+        console.log("falschen Passwort");
+        return;
+      }
+
+      let userExcists = false;
+      allUsers.forEach((user) => {
+        if (user.data.name == this.username) {
+          userExcists = true;
+        }
+      });
+      if (userExcists) {
+        console.log("user <" + this.username + "> existiert schon");
+        return;
+      }
+
+      const data = {
+        name: this.username,
+        password: this.password,
+        location: this.userLocation,
+        age: this.userAge,
+        plants: [],
+      };
+      const userRef = await firebase.firestore().collection("users").doc();
+
+      userRef.set(data);
+
+      this.$store.commit("setLoggedInUser", userRef.id);
+      this.$store.dispatch("fetchUserPlants");
+      this.isLoggedIn = true;
+      this.showCreateNewModal = false;
     },
     setHeaderText(string) {
       console.log("SET HEADER TEXT CALLED: " + string);
