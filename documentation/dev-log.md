@@ -1,5 +1,20 @@
 # In diesem Dokument kann man eine chronologische Entwicklung der App sehen.
 
+## Date 11/01/21
+
+### Lucas
+
+- neuen Nutzer anlegen eingefügt
+- mit Suche Seite begonnen
+- Store erweitert -> alle Pflanzendaten werden jetzt im store gespeichert
+
+### Anton
+
+- fix days bug
+- fix month order
+- add hover ups
+- start adding infos to hover ups
+
 ## Date 04/01/21
 
 ### Code Review Änderungen
