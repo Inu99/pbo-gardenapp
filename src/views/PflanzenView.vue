@@ -16,9 +16,12 @@
       <div class="split_left left">
         <img :src="plant.imageUrl" />
         <div id="button_add_plant_to_own" style="cursor: pointer">
-          <span id="button_add_plant_to_own_text"
-            ><i class="material-icons">add</i></span
-          >
+          <span id="button_add_plant_to_own_span">
+            <i id="button_add_plant_to_own_icon" class="material-icons">add</i>
+            <p id="button_add_plant_to_own_text" style="display: none">
+              Pflanze Hinzufügen
+            </p>
+          </span>
         </div>
       </div>
 
@@ -82,11 +85,11 @@ export default {
         this.plant.id = pl.id;
         this.plant.name = pl.name;
         this.plant.imageUrl = pl.imageUrl;
-        this.plant.winterproof = pl.winter_proof;
-        this.plant.harvest_relative_to_sowing = pl.harvest_relative_to_sowing;
-        this.plant.harvest_time_begin = pl.harvest_time_begin;
-        this.plant.harvest_time_end = pl.harvest_time_end;
-        this.plant.sun_sensitive = pl.sun_sensitive;
+        this.plant.winterProof = pl.winterProof;
+        this.plant.harvestRelativeToSowing = pl.harvestRelativeToSowing;
+        this.plant.harvestTimeBegin = pl.harvestTimeBegin;
+        this.plant.harvestTimeEnd = pl.harvestTimeEnd;
+        this.plant.sunSensitive = pl.sunSensitive;
       }
     });
     // check if plant with given id exists
@@ -102,32 +105,26 @@ export default {
     var subscribe_btn = document.getElementById("button_add_plant_to_own");
 
     subscribe_btn.addEventListener("mouseover", function (event) {
-      // expand button, set text in button
+      // expand button, set text in button visible
       event.target.style.opacity = 1;
       event.target.style.width = "150px";
-      document.getElementById("button_add_plant_to_own_text").textContent =
-        "Pflanze Hinzufügen";
+      document.getElementById("button_add_plant_to_own_icon").style.display =
+        "none";
+      document.getElementById("button_add_plant_to_own_text").style.display =
+        "inline";
     });
 
-    subscribe_btn.addEventListener(
-      "mouseleave",
-      function (isSubscribed = this.checkIfSubscribed()) {
-        // collapse button, set icon in button
-        event.target.style.opacity = 0.5;
-        event.target.style.width = "50px";
-        document.getElementById("button_add_plant_to_own_text").textContent =
-          "";
-        document.getElementById("button_add_plant_to_own_text").style.width =
-          "50px";
-        if (isSubscribed) {
-          document.getElementById("button_add_plant_to_own_text").innerHTML =
-            '<i class="material-icons">done</i>';
-        } else {
-          document.getElementById("button_add_plant_to_own_text").innerHTML =
-            '<i class="material-icons">add</i>';
-        }
-      }
-    );
+    subscribe_btn.addEventListener("mouseleave", function (event) {
+      // collapse button, set icon in button visible
+      event.target.style.opacity = 0.5;
+      event.target.style.width = "50px";
+      document.getElementById("button_add_plant_to_own_icon").style.display =
+        "";
+      document.getElementById("button_add_plant_to_own_span").style.width =
+        "50px";
+      document.getElementById("button_add_plant_to_own_text").style.display =
+        "none";
+    });
 
     subscribe_btn.addEventListener(
       "click",
@@ -139,6 +136,10 @@ export default {
         }
       }
     );
+    if (this.checkIfSubscribed() == true) {
+      document.getElementById("button_add_plant_to_own_icon").innerHTML =
+        "done";
+    }
 
     this.setLabels();
   },
@@ -157,23 +158,23 @@ export default {
       }
       // harvest time
       var harvesttime;
-      if (this.plant.harvest_relative_to_sowing) {
+      if (this.plant.harvestRelativeToSowing) {
         harvesttime =
-          this.plant.harvest_time_begin +
+          this.plant.harvestTimeBegin +
           " - " +
-          this.plant.harvest_time_end +
+          this.plant.harvestTimeEnd +
           " Wochen nach Aussaat";
       } else {
         harvesttime =
-          this.plant.harvest_time_begin +
+          this.plant.harvestTimeBegin +
           ". KW - " +
-          this.plant.harvest_time_end +
+          this.plant.harvestTimeEnd +
           ". KW";
       }
       document.getElementById("label_harvest_time").textContent = harvesttime;
 
       var sunsensitive;
-      switch (this.plant.sun_sensitive) {
+      switch (this.plant.sunSensitive) {
         case 0:
           sunsensitive = "Sonnig";
           break;
@@ -187,11 +188,18 @@ export default {
       document.getElementById("label_sun_sensitive").textContent = sunsensitive;
     },
     checkIfSubscribed() {
-      var userPlants = this.$store.getters.userPlants();
+      var isFound = false;
+      var userPlants = this.$store.getters.userPlants;
+      console.log("UserPlants:" + userPlants);
       userPlants.forEach((pl) => {
-        if (pl.id == this.plant.id) return true;
+        console.log(pl.id + " ?= " + this.plant.id);
+        if (pl.id == this.plant.id) {
+          console.log("---> returned true");
+          isFound = true;
+          return;
+        }
       });
-      return false;
+      return isFound;
     },
   },
 };
@@ -255,6 +263,14 @@ export default {
 }
 
 .split_left div span {
+  display: inline-block;
+  vertical-align: middle;
+  line-height: normal;
+  position: relative;
+  color: white;
+}
+
+.split_left div span p {
   display: inline-block;
   vertical-align: middle;
   line-height: normal;
