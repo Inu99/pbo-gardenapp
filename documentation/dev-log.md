@@ -15,6 +15,11 @@
 - add hover ups
 - start adding infos to hover ups
 
+### Thomas
+
+- fixed Button for adding Plants to own Garden (functionallity still to be implemented)
+- adjusted PlantView für using store, rather than refetching from database 
+
 ## Date 04/01/21
 
 ### Code Review Änderungen
