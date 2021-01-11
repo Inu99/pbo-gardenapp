@@ -1,5 +1,14 @@
 # In diesem Dokument kann man eine chronologische Entwicklung der App sehen.
 
+## Date 11/01/21
+
+### Lucas
+
+- neuen Nutzer anlegen eingefügt
+- mit Suche Seite begonnen
+- Store erweitert -> alle Pflanzendaten werden jetzt im store gespeichert
+
+
 ## Date 04/01/21
 
 ### Code Review Änderungen

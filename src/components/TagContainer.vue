@@ -44,7 +44,6 @@ body {
 }
 div {
   width: 100%;
-  margin: 5em auto 2.5em;
 }
 div:first-child {
   margin-top: 3em;
