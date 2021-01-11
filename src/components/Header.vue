@@ -142,7 +142,7 @@
           <i class="material-icons icons">home</i>
         </router-link>
         <!-- search btn -->
-        <router-link v-if="bools.hasSearchBtn" to="/">
+        <router-link v-if="bools.hasSearchBtn" to="/search">
           <i class="material-icons icons">search</i>
         </router-link>
         <div class="dropdown">
