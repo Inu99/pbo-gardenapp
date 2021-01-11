@@ -11,8 +11,8 @@
 <template>
   <div class="month">
     <ul>
-      <li class="prev" @click="seeNextMonth">&#10094;</li>
-      <li class="next" @click="seePrevMonth">&#10095;</li>
+      <li class="prev" @click="seePrevMonth">&#10094;</li>
+      <li class="next" @click="seeNextMonth">&#10095;</li>
       <li>
         {{ monthNames[currentMonth] }}<br />
         <span style="font-size: 18px">{{ currentYear }}</span>
@@ -30,7 +30,16 @@
     <li>Su</li>
   </ul>
   <ul class="days">
+    <li v-for="date in previousMonthDatesArray" v-bind:key="date.getDate()">
+      {{ date.getDate() }}
+    </li>
     <li v-for="date in currentMonthDatesArray" v-bind:key="date.getDate()">
+      <div class="hoverup">
+        {{ date.getDate() }}
+        <span class="hoveruptext">hoverup text</span>
+      </div>
+    </li>
+    <li v-for="date in nextMonthDatesArray" v-bind:key="date.getDate()">
       {{ date.getDate() }}
     </li>
   </ul>
@@ -62,6 +71,8 @@ export default {
       currentMonth: new Date().getMonth(),
       currentYear: new Date().getFullYear(),
       currentMonthDatesArray: [],
+      previousMonthDatesArray: [],
+      nextMonthDatesArray: [],
     };
   },
   methods: {
@@ -79,11 +90,12 @@ export default {
         this.currentMonth,
         this.currentYear
       );
-
+      // console.log("daysOfTheMonth", daysOfTheMonth);
       var firstDateOfTheMonth = daysOfTheMonth[0];
       console.log(firstDateOfTheMonth);
       var dayOfWeek = firstDateOfTheMonth.getDay();
       // change sunday from 0 to 7
+      var previousMonthDatesArray = [];
       dayOfWeek = dayOfWeek == 0 ? 7 : dayOfWeek;
       for (let index = 1; index < dayOfWeek; index++) {
         var dayOfPreviousMonth = new Date(
@@ -91,9 +103,10 @@ export default {
           this.currentMonth,
           0 - index + 1 // 0 means last day of previous month and so on
         );
-        daysOfTheMonth.unshift(dayOfPreviousMonth);
+        previousMonthDatesArray.unshift(dayOfPreviousMonth);
       }
-
+      this.previousMonthDatesArray = previousMonthDatesArray;
+      // console.log("daysOfTheMonth with prev", daysOfTheMonth);
       var lastDayOfCurrentMonth = new Date(
         this.currentYear,
         this.currentMonth + 1,
@@ -103,6 +116,7 @@ export default {
       // change sunday from 0 to 7
       dayOfWeek = dayOfWeek == 0 ? 7 : dayOfWeek;
       var nextMonthDayCounter = 1;
+      var nextMonthDatesArray = [];
       for (let index = dayOfWeek; index < 7; index++) {
         var dayOfNextMonth = new Date(
           this.currentYear,
@@ -110,21 +124,32 @@ export default {
           nextMonthDayCounter
         );
         nextMonthDayCounter++;
-        daysOfTheMonth.push(dayOfNextMonth);
+        nextMonthDatesArray.push(dayOfNextMonth);
       }
-      return daysOfTheMonth;
+      this.nextMonthDatesArray = nextMonthDatesArray;
+      // console.log("daysOfTheMonth with next", daysOfTheMonth);
+      this.currentMonthDatesArray = daysOfTheMonth;
+    },
+    mod(n, m) {
+      return ((n % m) + m) % m;
     },
     seeNextMonth() {
-      this.currentMonth++;
-      this.currentMonthDatesArray = this.getCurrentMonthDatesArray();
+      this.currentMonth = this.mod(this.currentMonth + 1, 12);
+      if (this.currentMonth == 0) {
+        this.currentYear++;
+      }
+      this.getCurrentMonthDatesArray();
     },
     seePrevMonth() {
-      this.currentMonth--;
-      this.currentMonthDatesArray = this.getCurrentMonthDatesArray();
+      this.currentMonth = this.mod(this.currentMonth - 1, 12);
+      if (this.currentMonth == 11) {
+        this.currentYear--;
+      }
+      this.getCurrentMonthDatesArray();
     },
   },
   created() {
-    this.currentMonthDatesArray = this.getCurrentMonthDatesArray();
+    this.getCurrentMonthDatesArray();
   },
 };
 </script>
@@ -228,5 +253,36 @@ body {
   .days li {
     width: 12.2%;
   }
+}
+
+/* hoverup css */
+.hoverup {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
+}
+
+/* hoverup text */
+.hoverup .hoveruptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+
+  position: absolute;
+  z-index: 1;
+
+  width: 120px;
+  bottom: 100%;
+  left: 50%;
+  margin-left: -60px; /* Use half of the width (120/2 = 60), to center the tooltip */
+}
+
+/* Show the hoverup text when you mouse over the hoverup container */
+.hoverup:hover .hoveruptext {
+  visibility: visible;
 }
 </style>
