@@ -39,6 +39,11 @@ export default createStore({
       const userRef = firebase.firestore().collection("users")
 
       commit("setFetching", true)
+
+      if (state.allPlants.length == 0) {
+        this.dispatch("fetchAllPlants")
+      }
+
       userRef.onSnapshot((querySnapshot) => {
         querySnapshot.forEach((user) => {
           if (user.id == state.loggedInUserId)
@@ -66,6 +71,11 @@ export default createStore({
             id: doc.id,
             name: doc.data().name,
             imageUrl: doc.data().image_url,
+            harvestRelativeToSowing: doc.data().harvest_relative_to_sowing,
+            harvestTimeBegin: doc.data().harvest_time_begin,
+            harvestTimeEnd: doc.data().harvest_time_end,
+            sunSensitive: doc.data().sun_sensitive,
+            winterProof: doc.data().winter_proof,
           });
         });
         commit("setAllPlants", plants);
