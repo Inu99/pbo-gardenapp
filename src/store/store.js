@@ -26,6 +26,10 @@ export default createStore({
     },
     setFetching(state, value) {
       state.isFetching = value
+    },
+    logOutUser(state) {
+      state.loggedInUserId = 0
+      state.userPlants = []
     }
   },
   actions: {
