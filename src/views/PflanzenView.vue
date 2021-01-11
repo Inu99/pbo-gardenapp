@@ -15,7 +15,7 @@
     <div class="content">
       <div class="split_left left">
         <img :src="plant.imageUrl" />
-        <div id="button_add_plant_to_own">
+        <div id="button_add_plant_to_own" style="cursor: pointer">
           <span id="button_add_plant_to_own_text"
             ><i class="material-icons">add</i></span
           >
@@ -57,7 +57,6 @@
 <script>
 // @ is an alias to /src
 import Header from "@/components/Header.vue";
-import firebase from "../Firebase";
 
 // import { ref } from "vue";
 
@@ -70,63 +69,79 @@ export default {
   data() {
     return {
       plant: [],
-      plantsRef: firebase.firestore().collection("plants"),
+      //plantsRef: firebase.firestore().collection("plants"),
       loading: true,
     };
   },
   async created() {
     // loads the plant
-    this.plantsRef.onSnapshot((querySnapshot) => {
-      querySnapshot.forEach((doc) => {
-        if (doc.id == this.$route.params.id) {
-          this.plant.id = doc.id;
-          this.plant.name = doc.data().name;
-          this.plant.imageUrl = doc.data().image_url;
-          this.plant.winterproof = doc.data().winter_proof;
-          this.plant.harvest_relative_to_sowing = doc.data().harvest_relative_to_sowing;
-          this.plant.harvest_time_begin = doc.data().harvest_time_begin;
-          this.plant.harvest_time_end = doc.data().harvest_time_end;
-          this.plant.sun_sensitive = doc.data().sun_sensitive;
-        }
-      });
-      // check if plant with given id exists
-      if (this.plant.name == undefined) {
-        alert("Error: no plant found with id " + this.$route.params.id);
-      } else {
-        // append events for the button for adding the plant in users garden
-        // TODO dont show if no user is logged in or show tick if plant already is "subscribed"
-        document
-          .getElementById("button_add_plant_to_own")
-          .addEventListener("mouseover", function (event) {
-            // expand button, set text in button
-            event.target.style.opacity = 1;
-            event.target.style.width = "150px";
-            document.getElementById(
-              "button_add_plant_to_own_text"
-            ).textContent = "Pflanze Hinzufügen";
-          });
+    var allPlants = this.$store.getters.allPlants;
 
-        document
-          .getElementById("button_add_plant_to_own")
-          .addEventListener("mouseleave", function (event) {
-            // collapse button, set icon in button
-            event.target.style.opacity = 0.5;
-            event.target.style.width = "50px";
-            document.getElementById(
-              "button_add_plant_to_own_text"
-            ).textContent = "";
-            document.getElementById(
-              "button_add_plant_to_own_text"
-            ).style.width = "50px";
-            document.getElementById("button_add_plant_to_own_text").innerHTML =
-              '<i class="material-icons">add</i>';
-          });
-
-        this.setLabels();
+    allPlants.forEach((pl) => {
+      if (pl.id == this.$route.params.id) {
+        this.plant.id = pl.id;
+        this.plant.name = pl.name;
+        this.plant.imageUrl = pl.imageUrl;
+        this.plant.winterproof = pl.winter_proof;
+        this.plant.harvest_relative_to_sowing = pl.harvest_relative_to_sowing;
+        this.plant.harvest_time_begin = pl.harvest_time_begin;
+        this.plant.harvest_time_end = pl.harvest_time_end;
+        this.plant.sun_sensitive = pl.sun_sensitive;
       }
     });
+    // check if plant with given id exists
+    if (this.plant.name == undefined) {
+      alert("Error: no plant found with id " + this.$route.params.id);
+    } else {
+      console.log(this.plant);
+    }
   },
+  mounted() {
+    // append events for the button for adding the plant in users garden
+    // TODO dont show if no user is logged in or show tick if plant already is "subscribed"
+    var subscribe_btn = document.getElementById("button_add_plant_to_own");
 
+    subscribe_btn.addEventListener("mouseover", function (event) {
+      // expand button, set text in button
+      event.target.style.opacity = 1;
+      event.target.style.width = "150px";
+      document.getElementById("button_add_plant_to_own_text").textContent =
+        "Pflanze Hinzufügen";
+    });
+
+    subscribe_btn.addEventListener(
+      "mouseleave",
+      function (isSubscribed = this.checkIfSubscribed()) {
+        // collapse button, set icon in button
+        event.target.style.opacity = 0.5;
+        event.target.style.width = "50px";
+        document.getElementById("button_add_plant_to_own_text").textContent =
+          "";
+        document.getElementById("button_add_plant_to_own_text").style.width =
+          "50px";
+        if (isSubscribed) {
+          document.getElementById("button_add_plant_to_own_text").innerHTML =
+            '<i class="material-icons">done</i>';
+        } else {
+          document.getElementById("button_add_plant_to_own_text").innerHTML =
+            '<i class="material-icons">add</i>';
+        }
+      }
+    );
+
+    subscribe_btn.addEventListener(
+      "click",
+      function (isSubscribed = this.checkIfSubscribed()) {
+        if (isSubscribed) {
+          console.log("is subscribed!");
+        } else {
+          console.log("is not subscribed!");
+        }
+      }
+    );
+
+    this.setLabels();
+  },
   methods: {
     // funtion to set all the labels in the plant view with data frpm the database
     setLabels() {
@@ -147,7 +162,7 @@ export default {
           this.plant.harvest_time_begin +
           " - " +
           this.plant.harvest_time_end +
-          " Wochen nach Aussaht";
+          " Wochen nach Aussaat";
       } else {
         harvesttime =
           this.plant.harvest_time_begin +
@@ -170,6 +185,13 @@ export default {
           break;
       }
       document.getElementById("label_sun_sensitive").textContent = sunsensitive;
+    },
+    checkIfSubscribed() {
+      var userPlants = this.$store.getters.userPlants();
+      userPlants.forEach((pl) => {
+        if (pl.id == this.plant.id) return true;
+      });
+      return false;
     },
   },
 };
@@ -229,6 +251,7 @@ export default {
   text-align: center;
   line-height: 50px;
   animation-fill-mode: both;
+  overflow: hidden;
 }
 
 .split_left div span {
