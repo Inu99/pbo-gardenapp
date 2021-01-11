@@ -15,7 +15,7 @@
         <div class="col-xl-3">
           <!-- user info -->
           <UserInfo :userId="$route.params.id" />
-          <PlantCalendar :plants="plantIds" />
+          <PlantCalendar />
         </div>
       </div>
     </div>
@@ -39,9 +39,7 @@ export default {
     PlantCalendar,
   },
   data() {
-    return {
-      plantIds: [0, 1, 4, 3, 0, 2, 1, 0, 0, 0],
-    };
+    return {};
   },
   created() {
     // load User info

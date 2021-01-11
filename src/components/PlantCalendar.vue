@@ -1,7 +1,5 @@
 <!-- 
       example usage: <PlantCalendar :plants="plantIds"/>
-      props:
-        - plants : Array  -> all plants infos
 
       TODO:   - fix month next and prev
               - add hover elements
@@ -49,7 +47,6 @@
 export default {
   name: "Header",
   props: {
-    plants: Array,
   },
   data() {
     return {
@@ -71,8 +68,7 @@ export default {
       currentMonth: new Date().getMonth(),
       currentYear: new Date().getFullYear(),
       currentMonthDatesArray: [],
-      previousMonthDatesArray: [],
-      nextMonthDatesArray: [],
+      currentMonthDatesFinalObject: [],
     };
   },
   methods: {
@@ -95,7 +91,6 @@ export default {
       console.log(firstDateOfTheMonth);
       var dayOfWeek = firstDateOfTheMonth.getDay();
       // change sunday from 0 to 7
-      var previousMonthDatesArray = [];
       dayOfWeek = dayOfWeek == 0 ? 7 : dayOfWeek;
       for (let index = 1; index < dayOfWeek; index++) {
         var dayOfPreviousMonth = new Date(
@@ -103,9 +98,8 @@ export default {
           this.currentMonth,
           0 - index + 1 // 0 means last day of previous month and so on
         );
-        previousMonthDatesArray.unshift(dayOfPreviousMonth);
+        this.currentMonthDatesArray.unshift(dayOfPreviousMonth);
       }
-      this.previousMonthDatesArray = previousMonthDatesArray;
       // console.log("daysOfTheMonth with prev", daysOfTheMonth);
       var lastDayOfCurrentMonth = new Date(
         this.currentYear,
@@ -116,7 +110,6 @@ export default {
       // change sunday from 0 to 7
       dayOfWeek = dayOfWeek == 0 ? 7 : dayOfWeek;
       var nextMonthDayCounter = 1;
-      var nextMonthDatesArray = [];
       for (let index = dayOfWeek; index < 7; index++) {
         var dayOfNextMonth = new Date(
           this.currentYear,
@@ -124,12 +117,23 @@ export default {
           nextMonthDayCounter
         );
         nextMonthDayCounter++;
-        nextMonthDatesArray.push(dayOfNextMonth);
+        this.currentMonthDatesArray.push(dayOfNextMonth);
       }
-      this.nextMonthDatesArray = nextMonthDatesArray;
       // console.log("daysOfTheMonth with next", daysOfTheMonth);
       this.currentMonthDatesArray = daysOfTheMonth;
+      this.createDatesWithHoverups();
     },
+    createDatesWithHoverups() {
+      var i = 0;
+      this.currentMonthDatesArray.forEach(element => {
+        var dateObject = {};
+        dateObject["date"] = element;
+        this.$store.getters.userPlants.find(obj => obj.harvestTimeBegin == element).har;
+        dateObject["harvestTimeBegin"] = null;
+        dateObject["harvestTimeEnd"] = null;
+        this.currentMonthDatesFinalObject[i++] = dateObject;
+      });
+    }
     mod(n, m) {
       return ((n % m) + m) % m;
     },
