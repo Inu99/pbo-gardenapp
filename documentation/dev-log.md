@@ -26,6 +26,15 @@
 - alte Variablen aus data() gelöscht 
 
 
+### Thomas
+
+- Git "aufgeräumt" und Dokumentationen angepasst / auf den neusten Stand gebracht
+- PlantView Vanilla JS Befehle entfernt, und mit Vue Anweisungen ersetzt.
+
+TODO: einige weitere JS Anweisungen entfernen, Plant-Subscribe Funktionalität implementieren
+
+
+
 ## Date 11/01/21
 
 ### Lucas
