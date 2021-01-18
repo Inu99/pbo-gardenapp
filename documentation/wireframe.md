@@ -1,8 +1,9 @@
-## alle views haben rechts oben drei button:
-
-- (suche) führt zu [3 Category View](#3-Category-View)
-- (home) führt zu [2 Landing View](#2-Landing-View)
+## Alle Views verfügen über einen Header mit:
+- Titel der View/Seite
 - (user) führt zu [4 User View](#4-User-View)
+- (suche) führt zu [3 Category View](#3-Category-View) (optional)
+- (home) führt zu [2 Landing View](#2-Landing-View) (optional)
+
 
 # 1 Plant View
 
@@ -26,7 +27,7 @@
   - unten: Ausgabe (oder vorgeschlagene Pflanzen, falls noch keine Suche eingegeben war)
 ![3_Kategorie_View](/documentation/images/3_Kategorie_View.png)
 
-# User View
+# 4 User View
 
 - links: alle gespreicherte Pflanzen
 - rechts:
