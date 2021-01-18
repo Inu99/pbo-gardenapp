@@ -1,6 +1,5 @@
 <template>
   <div>
-    <Header pageName="Nutzer" :userId="$route.params.id" />
     <div class="container">
       <div class="row">
         <div class="col-xl">
@@ -24,7 +23,6 @@
 
 <script>
 // @ is an alias to /src
-import Header from "@/components/Header.vue";
 import CardContainer from "@/components/CardContainer.vue";
 import UserInfo from "@/components/UserInfo.vue";
 import PlantCalendar from "@/components/PlantCalendar.vue";
@@ -33,7 +31,6 @@ import PlantCalendar from "@/components/PlantCalendar.vue";
 export default {
   name: "User",
   components: {
-    Header,
     CardContainer,
     UserInfo,
     PlantCalendar,

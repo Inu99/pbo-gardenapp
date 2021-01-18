@@ -10,15 +10,16 @@
 
 ### Anton
 
-- fix days bug
-- fix month order
-- add hover ups
-- start adding infos to hover ups
+Kalender: 
+- Anzeige der Daten gefixed
+- Tooltips bei hovern über ein bestimmtes Datum hinzugefügt
+- Begonnen den Tooltips informationen hinzuzufügen
 
 ### Thomas
 
-- fixed Button for adding Plants to own Garden (functionallity still to be implemented)
-- adjusted PlantView für using store, rather than refetching from database 
+- Button zum Pflanzen "Abonnieren" in der PlantView gefixed (Funktionalität muss noch implementiert werden)
+- PlantView an den Store angepasst, sodass nicht jedes mal ein neuer Datenbankzugriff gemacht wird
+
 
 ## Date 04/01/21
 
@@ -133,8 +134,8 @@ Pflanzenkarte weiterentwickelt:
 
 ## Date 02/11/20
 
-Aufteilung den Komponenten. <br>
-Drei je für einen Gruppenmitglied:
+Aufteilung der Komponenten. <br>
+Drei je für ein Gruppenmitglied:
 
 - Header
 - TagContainer
