@@ -19,11 +19,6 @@ export default {
   components: {
     CardContainer,
   },
-  data() {
-    return {
-      loggedInUserId: "aUZv9PhWLXdFdoPpNHCc",
-    };
-  },
   mounted() {
     this.$store.dispatch("fetchAllPlants");
   },

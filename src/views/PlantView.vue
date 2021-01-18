@@ -64,7 +64,7 @@ import Header from "@/components/Header.vue";
 // import { ref } from "vue";
 
 export default {
-  name: "PflanzenView",
+  name: "PlantView",
   components: {
     Header,
   },
