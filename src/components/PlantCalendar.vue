@@ -127,9 +127,9 @@ export default {
       this.currentMonthDatesArray.forEach((element) => {
         let dateObject = {};
         dateObject["date"] = element;
-        this.$store.getters.userPlants.find(
-          (obj) => obj.harvestTimeBegin == element
-        ).har;
+        // this.$store.getters.userPlants.find(
+        //   (obj) => obj.harvestTimeBegin == element
+        // ).harvestTimeBegin;
         dateObject["harvestTimeBegin"] = null;
         dateObject["harvestTimeEnd"] = null;
         this.currentMonthDatesFinalObject[i++] = dateObject;
