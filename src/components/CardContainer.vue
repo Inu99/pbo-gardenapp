@@ -5,6 +5,7 @@
         - isHorizontal : boolean -> indicates horizontal orientation
         - cardSize     : String  -> can be large or small
         - showUserPlant: boolean -> to load specific plants for user
+        - searchSite   : boolean -> identifies if we are on search page
 
 -->
 
@@ -47,7 +48,7 @@ export default {
       type: String,
       default: "small",
     },
-    userId: String,
+    searchSite: Boolean,
   },
   setup(props) {
     const small = ref(props.cardSize == "large" ? false : true);
@@ -55,6 +56,9 @@ export default {
   },
   computed: {
     plants() {
+      if (this.$props.searchSite) {
+        return this.$store.getters.searchedPlants;
+      }
       if (
         this.$store.getters.getLoggedInUserID != 0 &&
         this.$props.showUserPlant

@@ -3,16 +3,17 @@
     <!-- Search Area -->
     <div class="p-3">
       <input
-        type="submit"
+        type="text"
         class="form-control mb-3"
         placeholder="Search"
         aria-label="SearchField"
         aria-describedby="basic-addon1"
         v-model="searchQuery"
+        @change="triggerSearch"
       />
       <TagContainer :clickable="true" v-model="tagNames" />
     </div>
-    <CardContainer title="" cardSize="large" />
+    <CardContainer title="" searchSite cardSize="large" />
     <br />
   </div>
 </template>
@@ -44,7 +45,11 @@ export default {
       console.log(choosenTags);
       this.checkedNames = choosenTags;
     },
+    triggerSearch() {
+      this.$store.dispatch("searchPlants", { searchTerm: this.searchQuery });
+    },
   },
+
   mounted() {
     this.$store.dispatch("fetchAllPlants");
   },
