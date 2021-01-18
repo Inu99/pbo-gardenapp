@@ -9,6 +9,6 @@
 
 # kann:
 
-- anlegen eines Nutzaccounts
+- anlegen eines Nutzeraccounts
 - Kalender beinhalten, um Informationen über den Wachstumsstand der Pflanzen anzuzeigen
 - automatisiert Bilder der Pflanze aus dem Web suchen
