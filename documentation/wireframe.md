@@ -1,10 +1,10 @@
 ## alle views haben rechts oben drei button:
 
-- (suche) führt zu 3_Kategorie_View
-- (home) führt zu 2_Landing_View
-- (user) führt zu 4_Nutzer_View
+- (suche) führt zu [3 Category View](#3-Category-View)
+- (home) führt zu [2 Landing View](#2-Landing-View)
+- (user) führt zu [4 User View](#4-User-View)
 
-# 1_Pflanze_View
+# 1 Plant View
 
 - links:
   - Pflanzenbild
@@ -12,21 +12,21 @@
 - rechts: alle verfügbare Infos zu einem Pflanzen
 ![1_Pflanze_View](/documentation/images/1_Pflanze_View.png)
 
-# 2_Landing_View
+# 2 Landing View
 
 - zwei Blöcke:
   - oben: Mein Garten zuerst (alle gespeicherte Pflanzen)
   - unten: Vorschläge darunter (vorgeschlagene Pflanzen)
 ![2_Landing_View](/documentation/images/2_Landing_View.png)
 
-# 3_Kategorie_View
+# 3 Category View
 
 - zwei Blöcke:
   - oben: Suchleiste oben mit Tags zum Auswählen unten
   - unten: Ausgabe (oder vorgeschlagene Pflanzen, falls noch keine Suche eingegeben war)
 ![3_Kategorie_View](/documentation/images/3_Kategorie_View.png)
 
-# 4_Nutzer_View
+# User View
 
 - links: alle gespreicherte Pflanzen
 - rechts:
@@ -35,20 +35,20 @@
     - unten: Kalendar
 ![4_Nutzer_View](/documentation/images/4_Nutzer_View.png)
 
-# 5_Create_View
+# 5 Create View
 
 - ähnlich zu 4_Nutzer_View nur mit Eingabe Feldern.
 - Der View besitzt ebenfalls noch eine Schaltfläche zum Speichern der Eingaben
 ![5_Create_View](/documentation/images/5_Create_View.png)
 
-# Pflanze_Kachel_Groß
+# Pflanzen Kachel Groß
 
 - unten:
   - links: Namen
   - rechts: Wachstums-Tooltip, welche das aktuelle Wachstumsstadium der Pflanze darstellt. (Bspw. ob diese noch keimt/ein Setzling ist, oder bereits Erntebereite Früchte tragen sollte)
 ![Panel](/documentation/images/Panel.png)
 
-# Pflanze_Kachel_Klein
+# Pflanzen Kachel Klein
 
 - links: das Bild
 - rechts:
