@@ -15,12 +15,21 @@
     <div class="content">
       <div class="split_left left">
         <img :src="plant.imageUrl" />
-        <div id="button_add_plant_to_own" style="cursor: pointer">
+        <div
+          id="button_add_plant_to_own"
+          style="cursor: pointer"
+          @mouseover="btnSubscribeHover = true"
+          @mouseleave="btnSubscribeHover = false"
+          :class="{ btnSubscribeActive: btnSubscribeHover }"
+          @click="onSubscribeClick"
+        >
           <span id="button_add_plant_to_own_span">
-            <i id="button_add_plant_to_own_icon" class="material-icons">add</i>
-            <p id="button_add_plant_to_own_text" style="display: none">
+            <p id="button_add_plant_to_own_text" v-if="btnSubscribeHover">
               Pflanze Hinzufügen
             </p>
+            <i id="button_add_plant_to_own_icon" class="material-icons" v-else
+              >add</i
+            >
           </span>
         </div>
       </div>
@@ -71,6 +80,7 @@ export default {
 
   data() {
     return {
+      btnSubscribeHover: false,
       plant: [],
       //plantsRef: firebase.firestore().collection("plants"),
       loading: true,
@@ -100,42 +110,6 @@ export default {
     }
   },
   mounted() {
-    // append events for the button for adding the plant in users garden
-    // TODO dont show if no user is logged in or show tick if plant already is "subscribed"
-    let subscribe_btn = document.getElementById("button_add_plant_to_own");
-
-    subscribe_btn.addEventListener("mouseover", function (event) {
-      // expand button, set text in button visible
-      event.target.style.opacity = 1;
-      event.target.style.width = "150px";
-      document.getElementById("button_add_plant_to_own_icon").style.display =
-        "none";
-      document.getElementById("button_add_plant_to_own_text").style.display =
-        "inline";
-    });
-
-    subscribe_btn.addEventListener("mouseleave", function (event) {
-      // collapse button, set icon in button visible
-      event.target.style.opacity = 0.5;
-      event.target.style.width = "50px";
-      document.getElementById("button_add_plant_to_own_icon").style.display =
-        "";
-      document.getElementById("button_add_plant_to_own_span").style.width =
-        "50px";
-      document.getElementById("button_add_plant_to_own_text").style.display =
-        "none";
-    });
-
-    subscribe_btn.addEventListener(
-      "click",
-      function (isSubscribed = this.checkIfSubscribed()) {
-        if (isSubscribed) {
-          console.log("is subscribed!");
-        } else {
-          console.log("is not subscribed!");
-        }
-      }
-    );
     if (this.checkIfSubscribed() == true) {
       document.getElementById("button_add_plant_to_own_icon").innerHTML =
         "done";
@@ -190,17 +164,22 @@ export default {
     checkIfSubscribed() {
       let isFound = false;
       let userPlants = this.$store.getters.userPlants;
-      console.log("UserPlants:" + userPlants);
       userPlants.forEach((pl) => {
-        console.log(pl.id + " ?= " + this.plant.id);
         if (pl.id == this.plant.id) {
-          console.log("---> returned true");
           isFound = true;
           return;
         }
       });
       return isFound;
     },
+    onSubscribeClick() {
+      if (this.checkIfSubscribed()) {
+        console.log("is subscribed!");
+      } else {
+        console.log("is not subscribed!");
+      }
+    },
+    onSubscribeHover() {},
   },
 };
 </script>
@@ -262,6 +241,11 @@ export default {
   overflow: hidden;
 }
 
+.btnSubscribeActive {
+  opacity: 100% !important;
+  width: 150px !important;
+}
+
 .split_left div span {
   display: inline-block;
   vertical-align: middle;
@@ -271,7 +255,7 @@ export default {
 }
 
 .split_left div span p {
-  display: inline-block;
+  display: inline;
   vertical-align: middle;
   line-height: normal;
   position: relative;
