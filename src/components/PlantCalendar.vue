@@ -1,8 +1,7 @@
 <!-- 
       example usage: <PlantCalendar :plants="plantIds"/>
 
-      TODO:   - fix month next and prev
-              - add hover elements
+      TODO:   - finish hover elements
               - better styling
 -->
 
@@ -67,6 +66,8 @@ export default {
       currentMonth: new Date().getMonth(),
       currentYear: new Date().getFullYear(),
       currentMonthDatesArray: [],
+      nextMonthDatesArray: [],
+      previousMonthDatesArray: [],
       currentMonthDatesFinalObject: [],
     };
   },
@@ -81,11 +82,15 @@ export default {
       return days;
     },
     getCurrentMonthDatesArray() {
+      this.nextMonthDatesArray = [];
+      this.previousMonthDatesArray = [];
+      this.currentMonthDatesFinalObject = [];
       let daysOfTheMonth = this.getDaysInMonth(
         this.currentMonth,
         this.currentYear
       );
-      // console.log("daysOfTheMonth", daysOfTheMonth);
+      this.currentMonthDatesArray = daysOfTheMonth;
+      console.log("daysOfTheMonth current", this.currentMonthDatesArray);
       let firstDateOfTheMonth = daysOfTheMonth[0];
       console.log(firstDateOfTheMonth);
       let dayOfWeek = firstDateOfTheMonth.getDay();
@@ -97,9 +102,9 @@ export default {
           this.currentMonth,
           0 - index + 1 // 0 means last day of previous month and so on
         );
-        this.currentMonthDatesArray.unshift(dayOfPreviousMonth);
+        this.previousMonthDatesArray.unshift(dayOfPreviousMonth);
       }
-      // console.log("daysOfTheMonth with prev", daysOfTheMonth);
+      console.log("daysOfTheMonth with prev", this.previousMonthDatesArray);
       let lastDayOfCurrentMonth = new Date(
         this.currentYear,
         this.currentMonth + 1,
@@ -116,11 +121,10 @@ export default {
           nextMonthDayCounter
         );
         nextMonthDayCounter++;
-        this.currentMonthDatesArray.push(dayOfNextMonth);
+        this.nextMonthDatesArray.push(dayOfNextMonth);
       }
-      // console.log("daysOfTheMonth with next", daysOfTheMonth);
-      this.currentMonthDatesArray = daysOfTheMonth;
-      this.createDatesWithHoverups();
+      console.log("daysOfTheMonth with next", this.nextMonthDatesArray);
+      //this.createDatesWithHoverups();
     },
     createDatesWithHoverups() {
       let i = 0;
