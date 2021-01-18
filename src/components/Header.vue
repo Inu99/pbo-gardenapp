@@ -133,7 +133,7 @@
     </div>
     <!-- title -->
     <div id="header_title" class="navbar-brand title">
-      {{ pageName }}
+      {{ title }}
     </div>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto"></ul>
@@ -180,7 +180,7 @@
 </template>
 
 <script>
-import { reactive, ref } from "vue";
+import { ref } from "vue";
 // import firebase from "../Firebase";
 
 export default {
@@ -188,12 +188,7 @@ export default {
   props: {
     pageName: String,
   },
-  setup(props) {
-    const bools = reactive({
-      hasReturnBtn: true,
-      hasSearchBtn: true,
-      hasHomeBtn: true,
-    });
+  setup() {
     const showLoginModal = ref(false);
     const showCreateNewModal = ref(false);
     const username = ref("");
@@ -201,27 +196,8 @@ export default {
     const passwordAgain = ref("");
     const userLocation = ref("");
     const userAge = ref(0);
-    // check if user is Logged in
-
-    // check which page is shown
-    switch (props.pageName) {
-      case "Willkommen":
-        // HomeScreen
-        bools.hasReturnBtn = false;
-        bools.hasHomeBtn = false;
-        break;
-      case "Suche":
-        bools.hasSearchBtn = false;
-        break;
-      case "Anlegen":
-        bools.hasSearchBtn = false;
-        break;
-      default:
-        break;
-    }
 
     return {
-      bools,
       showLoginModal,
       showCreateNewModal,
       username,
@@ -234,6 +210,47 @@ export default {
   computed: {
     LoggedInUserID() {
       return this.$store.getters.getLoggedInUserID;
+    },
+    title() {
+      if (this.$route.path.includes("user")) {
+        return "Nutzer";
+      }
+      if (this.$route.path.includes("search")) {
+        return "Suche";
+      }
+      if (this.$route.path.includes("plantview")) {
+        let name = "";
+        const allPlants = this.$store.getters.allPlants;
+        allPlants.forEach((plant) => {
+          if (plant.id == this.$route.params.id) {
+            name = plant.name;
+          }
+        });
+        return name;
+      }
+      return "Willkommen";
+    },
+    bools() {
+      let hasReturnBtn = true;
+      let hasSearchBtn = true;
+      let hasHomeBtn = true;
+
+      switch (this.title) {
+        case "Willkommen":
+          // HomeScreen
+          hasReturnBtn = false;
+          hasHomeBtn = false;
+          break;
+        case "Suche":
+          hasSearchBtn = false;
+          break;
+        case "Anlegen":
+          hasSearchBtn = false;
+          break;
+        default:
+          break;
+      }
+      return { hasReturnBtn, hasSearchBtn, hasHomeBtn };
     },
   },
 
@@ -268,10 +285,6 @@ export default {
         })
         .catch((e) => console.log(e));
       this.showCreateNewModal = false;
-    },
-    setHeaderText(string) {
-      console.log("SET HEADER TEXT CALLED: " + string);
-      document.getElementById("header_title").textContent = string;
     },
   },
 };

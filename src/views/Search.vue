@@ -1,6 +1,5 @@
 <template>
   <div class="home">
-    <Header pageName="Suche" :userId="this.$store.getters.getLoggedInUser" />
     <!-- Search Area -->
     <div class="p-3">
       <input
@@ -20,14 +19,12 @@
 
 <script>
 // @ is an alias to /src
-import Header from "@/components/Header.vue";
 import TagContainer from "@/components/TagContainer.vue";
 import CardContainer from "@/components/CardContainer.vue";
 
 export default {
   name: "Search",
   components: {
-    Header,
     TagContainer,
     CardContainer,
   },
