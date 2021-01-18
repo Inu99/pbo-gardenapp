@@ -1,4 +1,30 @@
-# In diesem Dokument kann man eine chronologische Entwicklung der App sehen.
+# In diesem Dokument kann man eine chronologische Entwicklung der App sehen
+
+## Date 18/01/21
+
+### Lucas
+
+- einfache Suche Über die Namen der Pflanzen implementiert
+- Loginlogik und "neuen-Nutzer-anlegen" in Store umgezogen
+- Such funktion in Store implementieren
+- überflüssige Props entfernt
+- CardContainer um ein Props erweitert um auf bei der Suche auf die gefilterten Pflanzen zuzugreifen
+- Header aus den einzelnen Views entfernt und in App.vue eingebunden
+- Header dafür umstrukturiert:
+    - hat nun keine Props mehr
+    - ermittelt den Titel nun selbst anhand der Route
+    
+
+### Anton
+
+- Kalendar zum presentaion State zurückgesetzt
+- var zu let
+- Header zu App.vue verschoben
+- tags und user data from main page gelöscht
+- api key in Firebase.js mit .env.local Datei ersetzt
+- rename PflanzenView.vue zu PlantView.vue und Pfade angepasst
+- alte Variablen aus data() gelöscht 
+
 
 ## Date 11/01/21
 
@@ -10,15 +36,16 @@
 
 ### Anton
 
-- fix days bug
-- fix month order
-- add hover ups
-- start adding infos to hover ups
+Kalender: 
+- Anzeige der Daten gefixed
+- Tooltips bei hovern über ein bestimmtes Datum hinzugefügt
+- Begonnen den Tooltips informationen hinzuzufügen
 
 ### Thomas
 
-- fixed Button for adding Plants to own Garden (functionallity still to be implemented)
-- adjusted PlantView für using store, rather than refetching from database 
+- Button zum Pflanzen "Abonnieren" in der PlantView gefixed (Funktionalität muss noch implementiert werden)
+- PlantView an den Store angepasst, sodass nicht jedes mal ein neuer Datenbankzugriff gemacht wird
+
 
 ## Date 04/01/21
 
@@ -133,8 +160,8 @@ Pflanzenkarte weiterentwickelt:
 
 ## Date 02/11/20
 
-Aufteilung den Komponenten. <br>
-Drei je für einen Gruppenmitglied:
+Aufteilung der Komponenten. <br>
+Drei je für ein Gruppenmitglied:
 
 - Header
 - TagContainer

@@ -1,5 +1,5 @@
 <template>
-  <Header pageName="Willkommen" />
+  <Header />
   <router-view />
 </template>
 

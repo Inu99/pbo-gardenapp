@@ -7,11 +7,6 @@
 
 <template>
   <div>
-    <Header
-      id="label_header_name"
-      ref="Header"
-      :userId="parseInt($route.params.id)"
-    />
     <div class="content">
       <div class="split_left left">
         <img :src="plant.imageUrl" />
@@ -68,15 +63,12 @@
 
 <script>
 // @ is an alias to /src
-import Header from "@/components/Header.vue";
 
 // import { ref } from "vue";
 
 export default {
   name: "PlantView",
-  components: {
-    Header,
-  },
+  components: {},
 
   data() {
     return {
@@ -120,8 +112,6 @@ export default {
   methods: {
     // funtion to set all the labels in the plant view with data frpm the database
     setLabels() {
-      // header text
-      this.$refs.Header.setHeaderText(this.plant.name);
       // plant name
       document.getElementById("label_name").textContent = this.plant.name;
       // winterproofness

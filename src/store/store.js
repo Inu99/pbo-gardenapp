@@ -6,13 +6,15 @@ export default createStore({
     loggedInUserId: "0",
     userPlants: [],
     isFetching: false,
-    allPlants: []
+    allPlants: [],
+    searchedPlants: []
   },
   getters: {
     getLoggedInUserID: state => state.loggedInUserId,
     userPlants: state => state.userPlants,
     allPlants: state => state.allPlants,
-    isFetching: state => state.isFetching
+    isFetching: state => state.isFetching,
+    searchedPlants: state => state.searchedPlants
   },
   mutations: {
     setLoggedInUser(state, id) {
@@ -30,6 +32,9 @@ export default createStore({
     logOutUser(state) {
       state.loggedInUserId = 0
       state.userPlants = []
+    },
+    setSearchedPlants(state, plants) {
+      state.searchedPlants = plants
     }
   },
   actions: {
@@ -148,6 +153,17 @@ export default createStore({
           resolve(allUsers);
         });
       });
+    },
+    searchPlants({ commit, state }, payload) {
+      let buff = []
+      const searchTermLarge = payload.searchTerm.toUpperCase()
+      state.allPlants.forEach(plant => {
+        const large = plant.name.toUpperCase()
+        if (large.includes(searchTermLarge)) {
+          buff.push(plant)
+        }
+      })
+      commit("setSearchedPlants", buff)
     }
   },
   modules: {
