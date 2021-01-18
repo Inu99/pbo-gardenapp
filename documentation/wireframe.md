@@ -37,14 +37,15 @@
 
 # 5_Create_View
 
-- änlich zu 4_Nutzer_View nur mit Eingabe Feldern
+- ähnlich zu 4_Nutzer_View nur mit Eingabe Feldern.
+- Der View besitzt ebenfalls noch eine Schaltfläche zum Speichern der Eingaben
 ![5_Create_View](/documentation/images/5_Create_View.png)
 
 # Pflanze_Kachel_Groß
 
 - unten:
   - links: Namen
-  - rechts: Wachstums-Tooltip
+  - rechts: Wachstums-Tooltip, welche das aktuelle Wachstumsstadium der Pflanze darstellt. (Bspw. ob diese noch keimt/ein Setzling ist, oder bereits Erntebereite Früchte tragen sollte)
 ![Panel](/documentation/images/Panel.png)
 
 # Pflanze_Kachel_Klein
@@ -53,5 +54,5 @@
 - rechts:
 - zwei Blöcke:
   - oben: Namen (ggf. Infos)
-  - Wachstums-Tooltip
+  - Wachstums-Tooltip, welche das aktuelle Wachstumsstadium der Pflanze darstellt. (Bspw. ob diese noch keimt/ein Setzling ist, oder bereits Erntebereite Früchte tragen sollte)
 ![Panel-small](/documentation/images/Panel_small.png)
