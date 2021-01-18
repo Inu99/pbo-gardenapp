@@ -1,9 +1,6 @@
 <template>
   <div class="home">
-    <Header
-      pageName="Willkommen"
-      :userId="this.$store.getters.getLoggedInUser"
-    />
+    <Header pageName="Willkommen" />
     <CardContainer
       title="Mein Garten"
       isHorizontal

@@ -46,8 +46,7 @@
 <script>
 export default {
   name: "Header",
-  props: {
-  },
+  props: {},
   data() {
     return {
       monthNames: [
@@ -125,15 +124,17 @@ export default {
     },
     createDatesWithHoverups() {
       var i = 0;
-      this.currentMonthDatesArray.forEach(element => {
+      this.currentMonthDatesArray.forEach((element) => {
         var dateObject = {};
         dateObject["date"] = element;
-        this.$store.getters.userPlants.find(obj => obj.harvestTimeBegin == element).har;
+        this.$store.getters.userPlants.find(
+          (obj) => obj.harvestTimeBegin == element
+        ).har;
         dateObject["harvestTimeBegin"] = null;
         dateObject["harvestTimeEnd"] = null;
         this.currentMonthDatesFinalObject[i++] = dateObject;
       });
-    }
+    },
     mod(n, m) {
       return ((n % m) + m) % m;
     },

@@ -9,13 +9,14 @@ export default createStore({
     allPlants: []
   },
   getters: {
-    getLoggedInUser: state => state.loggedInUserId,
+    getLoggedInUserID: state => state.loggedInUserId,
     userPlants: state => state.userPlants,
     allPlants: state => state.allPlants,
     isFetching: state => state.isFetching
   },
   mutations: {
     setLoggedInUser(state, id) {
+      console.log("user logged in")
       state.loggedInUserId = id
     },
     setUserPlants(state, plants) {
@@ -82,6 +83,77 @@ export default createStore({
         commit("setFetching", false)
       });
     },
+
+    loginUser({ commit }, payload) {
+      const userRef = firebase.firestore().collection("users");
+      console.log(payload)
+      return new Promise((resolve, reject) => {
+        userRef.onSnapshot((querySnapshot) => {
+          querySnapshot.forEach((user) => {
+            if (
+              user.data().name == payload.username &&
+              user.data().password == payload.password
+            ) {
+              commit("setLoggedInUser", user.id);
+              return resolve(true)
+            }
+          });
+          return reject(false)
+        });
+      })
+    },
+    async createNewUser({ dispatch, commit }, payload) {
+      const allUsers = await dispatch("getAllUsers");
+      console.log(allUsers)
+      console.log(payload)
+      const userRef = await firebase.firestore().collection("users").doc();
+      return new Promise((resolve, reject) => {
+        if (payload.password != payload.passwordAgain) {
+          // console.log("falschen Passwort");
+          return reject("wrong password")
+        }
+
+        let userExcists = false;
+        allUsers.forEach((user) => {
+          if (user.data.name == payload.username) {
+            userExcists = true;
+          }
+        });
+        if (userExcists) {
+          // console.log("user <" + this.username + "> existiert schon");
+          return reject("user <" + payload.username + "> allready exists")
+        }
+
+        console.log("blah blah")
+        const data = {
+          name: payload.username,
+          password: payload.password,
+          location: payload.location,
+          age: payload.age,
+          plants: [],
+        };
+
+        userRef.set(data);
+        commit("setLoggedInUser", userRef.id)
+        commit("setUserPlants", [])
+        return resolve()
+      })
+    },
+    async getAllUsers() {
+      const userRef = firebase.firestore().collection("users");
+      let allUsers = [];
+      return new Promise((resolve) => {
+        userRef.onSnapshot((querySnapshot) => {
+          querySnapshot.forEach((user) => {
+            allUsers.push({
+              id: user.id,
+              data: user.data(),
+            });
+          });
+          resolve(allUsers);
+        });
+      });
+    }
   },
   modules: {
   }

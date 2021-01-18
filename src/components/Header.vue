@@ -1,8 +1,7 @@
 <!-- 
-      example usage: <Header pageName="Willkommen" userId="1337" />
+      example usage: <Header pageName="Willkommen" />
       props:
         - pageName: String  -> displayed title, possible values: Willkommen, Nutzer, Planze, Suche, Anlegen
-        - userId  : Number  -> indicates which user is logged in
 
       TODO:   
         - display error on wrong username/password
@@ -133,7 +132,9 @@
       >
     </div>
     <!-- title -->
-    <div id="header_title" class="navbar-brand title">{{ pageName }}</div>
+    <div id="header_title" class="navbar-brand title">
+      {{ pageName }}
+    </div>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto"></ul>
       <form class="form-inline my-2 my-lg-0">
@@ -152,14 +153,23 @@
           </button>
           <!-- dropdown for user icon -->
           <div class="dropdown-content">
-            <router-link :to="`/user/${userId}`" v-if="isLoggedIn">
+            <router-link
+              :to="`/user/${LoggedInUserID}`"
+              v-if="LoggedInUserID != 0"
+            >
               Mein Profil
             </router-link>
-            <a href="#" v-if="isLoggedIn" @click="doLogout">Logout</a>
-            <a href="#" v-if="!isLoggedIn" @click="showLoginModal = true"
+            <a href="#" v-if="LoggedInUserID != 0" @click="doLogout">Logout</a>
+            <a
+              href="#"
+              v-if="LoggedInUserID == 0"
+              @click="showLoginModal = true"
               >Login</a
             >
-            <a href="#" v-if="!isLoggedIn" @click="showCreateNewModal = true"
+            <a
+              href="#"
+              v-if="LoggedInUserID == 0"
+              @click="showCreateNewModal = true"
               >neues Profil erstellen</a
             >
           </div>
@@ -171,13 +181,12 @@
 
 <script>
 import { reactive, ref } from "vue";
-import firebase from "../Firebase";
+// import firebase from "../Firebase";
 
 export default {
   name: "Header",
   props: {
     pageName: String,
-    userId: String,
   },
   setup(props) {
     const bools = reactive({
@@ -185,7 +194,6 @@ export default {
       hasSearchBtn: true,
       hasHomeBtn: true,
     });
-    const isLoggedIn = ref(props.userId == 0 ? false : true);
     const showLoginModal = ref(false);
     const showCreateNewModal = ref(false);
     const username = ref("");
@@ -214,7 +222,6 @@ export default {
 
     return {
       bools,
-      isLoggedIn,
       showLoginModal,
       showCreateNewModal,
       username,
@@ -223,6 +230,11 @@ export default {
       password,
       passwordAgain,
     };
+  },
+  computed: {
+    LoggedInUserID() {
+      return this.$store.getters.getLoggedInUserID;
+    },
   },
 
   methods: {
@@ -233,73 +245,28 @@ export default {
     },
     doLogin() {
       // login the User
-      const userRef = firebase.firestore().collection("users");
-
-      userRef.onSnapshot((querySnapshot) => {
-        querySnapshot.forEach((user) => {
-          if (
-            user.data().name == this.username &&
-            user.data().password == this.password
-          ) {
-            this.$store.commit("setLoggedInUser", user.id);
-            this.showLoginModal = false;
-            this.isLoggedIn = true;
-          }
-        });
-      });
-
-      this.$store.dispatch("fetchUserPlants");
-    },
-    async getAllUsers() {
-      const userRef = firebase.firestore().collection("users");
-      let allUsers = [];
-      return new Promise((resolve) => {
-        userRef.onSnapshot((querySnapshot) => {
-          querySnapshot.forEach((user) => {
-            allUsers.push({
-              id: user.id,
-              data: user.data(),
-            });
-          });
-          resolve(allUsers);
-        });
-      });
+      this.$store
+        .dispatch("loginUser", {
+          password: this.password,
+          username: this.username,
+        })
+        .then(() => {
+          this.showLoginModal = false;
+        })
+        .catch((e) => console.log("Login failed", e));
+      this.password = "";
+      this.username = "";
     },
     async createNewUser() {
-      console.log("Neuen nutzer erstellen");
-
-      const allUsers = await this.getAllUsers();
-      console.log(allUsers);
-      if (this.password != this.passwordAgain) {
-        console.log("falschen Passwort");
-        return;
-      }
-
-      let userExcists = false;
-      allUsers.forEach((user) => {
-        if (user.data.name == this.username) {
-          userExcists = true;
-        }
-      });
-      if (userExcists) {
-        console.log("user <" + this.username + "> existiert schon");
-        return;
-      }
-
-      const data = {
-        name: this.username,
-        password: this.password,
-        location: this.userLocation,
-        age: this.userAge,
-        plants: [],
-      };
-      const userRef = await firebase.firestore().collection("users").doc();
-
-      userRef.set(data);
-
-      this.$store.commit("setLoggedInUser", userRef.id);
-      this.$store.dispatch("fetchUserPlants");
-      this.isLoggedIn = true;
+      this.$store
+        .dispatch("createNewUser", {
+          username: this.username,
+          password: this.password,
+          passwordAgain: this.passwordAgain,
+          location: this.userLocation,
+          age: this.userAge,
+        })
+        .catch((e) => console.log(e));
       this.showCreateNewModal = false;
     },
     setHeaderText(string) {
