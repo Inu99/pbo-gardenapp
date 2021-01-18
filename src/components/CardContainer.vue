@@ -1,10 +1,10 @@
 <!-- 
-      example usage: <CardContainer title="Mein Garten" userId="2345sfd34" isHorizontal cardSize="small"/>
+      example usage: <CardContainer title="Mein Garten" isHorizontal cardSize="small"/>
       porps:
-        - title       : String  -> displayed above container
-        - isHorizontal: boolean -> indicates horizontal orientation
-        - cardSize    : String  -> can be large or small
-        - userId      : String  -> to load specific plants for user
+        - title        : String  -> displayed above container
+        - isHorizontal : boolean -> indicates horizontal orientation
+        - cardSize     : String  -> can be large or small
+        - showUserPlant: boolean -> to load specific plants for user
 
 -->
 
@@ -42,6 +42,7 @@ export default {
   props: {
     title: String,
     isHorizontal: Boolean,
+    showUserPlant: Boolean,
     cardSize: {
       type: String,
       default: "small",
@@ -54,7 +55,10 @@ export default {
   },
   computed: {
     plants() {
-      if (this.$props.userId) {
+      if (
+        this.$store.getters.getLoggedInUserID != 0 &&
+        this.$props.showUserPlant
+      ) {
         return this.$store.getters.userPlants;
       } else {
         return this.$store.getters.allPlants;

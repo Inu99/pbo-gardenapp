@@ -1,5 +1,5 @@
 <template>
-  <Header pageName="Willkommen" :userId="this.$store.getters.getLoggedInUser" />
+  <Header pageName="Willkommen" />
   <router-view />
 </template>
 

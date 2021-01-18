@@ -1,11 +1,10 @@
 <template>
   <div class="home">
-    <Header pageName="Willkommen" />
     <CardContainer
       title="Mein Garten"
       isHorizontal
+      showUserPlant
       cardSize="large"
-      :userId="this.$store.getters.getLoggedInUser"
     />
     <CardContainer title="Vorschläge" isHorizontal cardSize="small" />
   </div>

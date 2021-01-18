@@ -16,7 +16,6 @@ export default createStore({
   },
   mutations: {
     setLoggedInUser(state, id) {
-      console.log("user logged in")
       state.loggedInUserId = id
     },
     setUserPlants(state, plants) {
@@ -34,7 +33,7 @@ export default createStore({
     }
   },
   actions: {
-    fetchUserPlants({ commit, state }) {
+    async fetchUserPlants({ dispatch, commit, state }) {
       // load plants for user
       let userPlantIds = [];
       const userRef = firebase.firestore().collection("users")
@@ -42,7 +41,7 @@ export default createStore({
       commit("setFetching", true)
 
       if (state.allPlants.length == 0) {
-        this.dispatch("fetchAllPlants")
+        dispatch("fetchAllPlants")
       }
 
       userRef.onSnapshot((querySnapshot) => {
@@ -55,7 +54,6 @@ export default createStore({
           let buff = state.allPlants.filter((plant) => plant.id == id);
           userPlants.push(buff[0]);
         });
-        console.log(userPlants)
         commit("setUserPlants", userPlants);
         commit("setFetching", false)
       });
@@ -84,9 +82,8 @@ export default createStore({
       });
     },
 
-    loginUser({ commit }, payload) {
+    loginUser({ dispatch, commit }, payload) {
       const userRef = firebase.firestore().collection("users");
-      console.log(payload)
       return new Promise((resolve, reject) => {
         userRef.onSnapshot((querySnapshot) => {
           querySnapshot.forEach((user) => {
@@ -95,6 +92,7 @@ export default createStore({
               user.data().password == payload.password
             ) {
               commit("setLoggedInUser", user.id);
+              dispatch("fetchUserPlants")
               return resolve(true)
             }
           });
@@ -104,8 +102,6 @@ export default createStore({
     },
     async createNewUser({ dispatch, commit }, payload) {
       const allUsers = await dispatch("getAllUsers");
-      console.log(allUsers)
-      console.log(payload)
       const userRef = await firebase.firestore().collection("users").doc();
       return new Promise((resolve, reject) => {
         if (payload.password != payload.passwordAgain) {
@@ -124,7 +120,6 @@ export default createStore({
           return reject("user <" + payload.username + "> allready exists")
         }
 
-        console.log("blah blah")
         const data = {
           name: payload.username,
           password: payload.password,
