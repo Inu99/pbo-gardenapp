@@ -7,8 +7,8 @@
 
 <template>
   <div class="plantCard">
-    <!--    <router-link :to="{ name: 'PflanzenView', params: { plant: plant } }"> -->
-    <router-link :to="'/pflanzenview/' + plant.id">
+    <!--    <router-link :to="{ name: 'PlantView', params: { plant: plant } }"> -->
+    <router-link :to="'/plantview/' + plant.id">
       <div :style="plantCard">
         <img :src="plant.imageUrl" class="plantCardImg" />
         <div class="plantCardImgOverlay">
