@@ -1,4 +1,18 @@
-# In diesem Dokument kann man eine chronologische Entwicklung der App sehen.
+# In diesem Dokument kann man eine chronologische Entwicklung der App sehen
+
+## Date 18/01/21
+
+### Lucas
+
+- einfache Suche Über die Namen der Pflanzen implementiert
+- Loginlogik und "neuen-Nutzer-anlegen" in Store umgezogen
+- Such funktion in Store implementieren
+- überflüssige Props entfernt
+- CardContainer um ein Props erweitert um auf bei der Suche auf die gefilterten Pflanzen zuzugreifen
+- Header aus den einzelnen Views entfernt und in App.vue eingebunden
+- Header dafür umstrukturiert:
+    - hat nun keine Props mehr
+    - ermittelt den Titel nun selbst anhand der Route
 
 ## Date 11/01/21
 
