@@ -28,7 +28,7 @@ export default {
   },
   methods: {
     changeChecked(index) {
-      var tagsNew = this.modelValue;
+      let tagsNew = this.modelValue;
       tagsNew[index].isChecked = !tagsNew[index].isChecked;
       this.$emit("update:tags", tagsNew);
     },

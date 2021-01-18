@@ -28,7 +28,7 @@ export default {
   },
 
   data() {
-    var height;
+    let height;
     if (this.useSmall == true) {
       height = "150px";
     } else {

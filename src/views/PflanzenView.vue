@@ -78,7 +78,7 @@ export default {
   },
   async created() {
     // loads the plant
-    var allPlants = this.$store.getters.allPlants;
+    let allPlants = this.$store.getters.allPlants;
 
     allPlants.forEach((pl) => {
       if (pl.id == this.$route.params.id) {
@@ -102,7 +102,7 @@ export default {
   mounted() {
     // append events for the button for adding the plant in users garden
     // TODO dont show if no user is logged in or show tick if plant already is "subscribed"
-    var subscribe_btn = document.getElementById("button_add_plant_to_own");
+    let subscribe_btn = document.getElementById("button_add_plant_to_own");
 
     subscribe_btn.addEventListener("mouseover", function (event) {
       // expand button, set text in button visible
@@ -157,7 +157,7 @@ export default {
         document.getElementById("label_winter_proof").textContent = "Nein";
       }
       // harvest time
-      var harvesttime;
+      let harvesttime;
       if (this.plant.harvestRelativeToSowing) {
         harvesttime =
           this.plant.harvestTimeBegin +
@@ -173,7 +173,7 @@ export default {
       }
       document.getElementById("label_harvest_time").textContent = harvesttime;
 
-      var sunsensitive;
+      let sunsensitive;
       switch (this.plant.sunSensitive) {
         case 0:
           sunsensitive = "Sonnig";
@@ -188,8 +188,8 @@ export default {
       document.getElementById("label_sun_sensitive").textContent = sunsensitive;
     },
     checkIfSubscribed() {
-      var isFound = false;
-      var userPlants = this.$store.getters.userPlants;
+      let isFound = false;
+      let userPlants = this.$store.getters.userPlants;
       console.log("UserPlants:" + userPlants);
       userPlants.forEach((pl) => {
         console.log(pl.id + " ?= " + this.plant.id);

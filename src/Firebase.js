@@ -4,7 +4,7 @@ import firestore from 'firebase/firestore'
 const settings = { timestampsInSnapshots: true };
 
 const config = {
-    apiKey: "AIzaSyAvNKFv1Lwm9_rADLXL4ECapsbW4xMxguI",
+    apiKey: process.env.API_KEY,
     authDomain: "pbo-gartenapp.firebaseapp.com",
     databaseURL: "https://pbo-gartenapp.firebaseio.com/",
     projectId: "pbo-gartenapp",

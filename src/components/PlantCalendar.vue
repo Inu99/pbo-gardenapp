@@ -72,8 +72,8 @@ export default {
   },
   methods: {
     getDaysInMonth(month, year) {
-      var date = new Date(year, month, 1);
-      var days = [];
+      let date = new Date(year, month, 1);
+      let days = [];
       while (date.getMonth() === month) {
         days.push(new Date(date));
         date.setDate(date.getDate() + 1);
@@ -81,18 +81,18 @@ export default {
       return days;
     },
     getCurrentMonthDatesArray() {
-      var daysOfTheMonth = this.getDaysInMonth(
+      let daysOfTheMonth = this.getDaysInMonth(
         this.currentMonth,
         this.currentYear
       );
       // console.log("daysOfTheMonth", daysOfTheMonth);
-      var firstDateOfTheMonth = daysOfTheMonth[0];
+      let firstDateOfTheMonth = daysOfTheMonth[0];
       console.log(firstDateOfTheMonth);
-      var dayOfWeek = firstDateOfTheMonth.getDay();
+      let dayOfWeek = firstDateOfTheMonth.getDay();
       // change sunday from 0 to 7
       dayOfWeek = dayOfWeek == 0 ? 7 : dayOfWeek;
       for (let index = 1; index < dayOfWeek; index++) {
-        var dayOfPreviousMonth = new Date(
+        let dayOfPreviousMonth = new Date(
           this.currentYear,
           this.currentMonth,
           0 - index + 1 // 0 means last day of previous month and so on
@@ -100,7 +100,7 @@ export default {
         this.currentMonthDatesArray.unshift(dayOfPreviousMonth);
       }
       // console.log("daysOfTheMonth with prev", daysOfTheMonth);
-      var lastDayOfCurrentMonth = new Date(
+      let lastDayOfCurrentMonth = new Date(
         this.currentYear,
         this.currentMonth + 1,
         0
@@ -108,9 +108,9 @@ export default {
       dayOfWeek = lastDayOfCurrentMonth.getDay();
       // change sunday from 0 to 7
       dayOfWeek = dayOfWeek == 0 ? 7 : dayOfWeek;
-      var nextMonthDayCounter = 1;
+      let nextMonthDayCounter = 1;
       for (let index = dayOfWeek; index < 7; index++) {
-        var dayOfNextMonth = new Date(
+        let dayOfNextMonth = new Date(
           this.currentYear,
           this.currentMonth + 1,
           nextMonthDayCounter
@@ -123,9 +123,9 @@ export default {
       this.createDatesWithHoverups();
     },
     createDatesWithHoverups() {
-      var i = 0;
+      let i = 0;
       this.currentMonthDatesArray.forEach((element) => {
-        var dateObject = {};
+        let dateObject = {};
         dateObject["date"] = element;
         this.$store.getters.userPlants.find(
           (obj) => obj.harvestTimeBegin == element
