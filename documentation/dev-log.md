@@ -13,6 +13,18 @@
 - Header dafür umstrukturiert:
     - hat nun keine Props mehr
     - ermittelt den Titel nun selbst anhand der Route
+    
+
+### Anton
+
+- Kalendar zum presentaion State zurückgesetzt
+- var zu let
+- Header zu App.vue verschoben
+- tags und user data from main page gelöscht
+- api key in Firebase.js mit .env.local Datei ersetzt
+- rename PflanzenView.vue zu PlantView.vue und Pfade angepasst
+- alte Variablen aus data() gelöscht 
+
 
 ## Date 11/01/21
 
