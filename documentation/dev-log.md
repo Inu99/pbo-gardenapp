@@ -7,6 +7,12 @@
 - Kalendar gerundet
 - add margins to user view 
 
+### Thomas
+
+- Funktionalität um eine Pflanze zu abonnieren implementiert (jedoch zur Zeit nur in den lokalen Store, nicht in die Database)
+- PlantView optisch abgerundet :)
+- setter Methode für Planzen im Store hinzugefügt 
+
 ## Date 18/01/21
 
 ### Lucas
