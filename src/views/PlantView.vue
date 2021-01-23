@@ -73,6 +73,10 @@ export default {
   data() {
     return {
       btnSubscribeHover: false,
+      tagNames: [
+        { name: "Tag 1", isChecked: false },
+        { name: "Tag 2", isChecked: false },
+      ],
       plant: [],
       //plantsRef: firebase.firestore().collection("plants"),
       loading: true,

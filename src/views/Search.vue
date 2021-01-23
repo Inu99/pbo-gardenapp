@@ -36,7 +36,6 @@ export default {
         { name: "Tag 2", isChecked: false },
       ],
       loggedInUserId: "aUZv9PhWLXdFdoPpNHCc",
-      checkedNames: [],
       searchQuery: "",
     };
   },

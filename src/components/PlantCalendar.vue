@@ -6,40 +6,42 @@
 -->
 
 <template>
-  <div class="month">
-    <ul>
-      <li class="prev" @click="seePrevMonth">&#10094;</li>
-      <li class="next" @click="seeNextMonth">&#10095;</li>
-      <li>
-        {{ monthNames[currentMonth] }}<br />
-        <span style="font-size: 18px">{{ currentYear }}</span>
+  <div class="calendar">
+    <div class="month">
+      <ul>
+        <li class="prev" @click="seePrevMonth">&#10094;</li>
+        <li class="next" @click="seeNextMonth">&#10095;</li>
+        <li>
+          {{ monthNames[currentMonth] }}<br />
+          <span style="font-size: 18px">{{ currentYear }}</span>
+        </li>
+      </ul>
+    </div>
+
+    <ul class="weekdays">
+      <li>Mo</li>
+      <li>Tu</li>
+      <li>We</li>
+      <li>Th</li>
+      <li>Fr</li>
+      <li>Sa</li>
+      <li>Su</li>
+    </ul>
+    <ul class="days">
+      <li v-for="date in previousMonthDatesArray" v-bind:key="date.getDate()">
+        {{ date.getDate() }}
+      </li>
+      <li v-for="date in currentMonthDatesArray" v-bind:key="date.getDate()">
+        <div class="hoverup">
+          {{ date.getDate() }}
+          <span class="hoveruptext">hoverup text</span>
+        </div>
+      </li>
+      <li v-for="date in nextMonthDatesArray" v-bind:key="date.getDate()">
+        {{ date.getDate() }}
       </li>
     </ul>
   </div>
-
-  <ul class="weekdays">
-    <li>Mo</li>
-    <li>Tu</li>
-    <li>We</li>
-    <li>Th</li>
-    <li>Fr</li>
-    <li>Sa</li>
-    <li>Su</li>
-  </ul>
-  <ul class="days">
-    <li v-for="date in previousMonthDatesArray" v-bind:key="date.getDate()">
-      {{ date.getDate() }}
-    </li>
-    <li v-for="date in currentMonthDatesArray" v-bind:key="date.getDate()">
-      <div class="hoverup">
-        {{ date.getDate() }}
-        <span class="hoveruptext">hoverup text</span>
-      </div>
-    </li>
-    <li v-for="date in nextMonthDatesArray" v-bind:key="date.getDate()">
-      {{ date.getDate() }}
-    </li>
-  </ul>
 </template>
 
 <script>
@@ -180,6 +182,7 @@ body {
   width: 100%;
   background: #1abc9c;
   text-align: center;
+  border-radius: 5px 5px 0px 0px;
 }
 
 .month ul {
@@ -221,6 +224,7 @@ body {
   padding: 10px 0;
   background: #eee;
   margin: 0;
+  border-radius: 0px 0px 5px 5px;
 }
 
 .days li {
