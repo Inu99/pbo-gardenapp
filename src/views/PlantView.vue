@@ -22,8 +22,11 @@
             <p id="button_add_plant_to_own_text" v-if="btnSubscribeHover">
               Pflanze Hinzufügen
             </p>
-            <i id="button_add_plant_to_own_icon" class="material-icons" v-else
-              >add</i
+            <i
+              id="button_add_plant_to_own_icon"
+              class="material-icons"
+              v-else
+              >{{ btnSubscribeIcon }}</i
             >
           </span>
         </div>
@@ -73,6 +76,7 @@ export default {
   data() {
     return {
       btnSubscribeHover: false,
+      btnSubscribeIcon: "add",
       plant: [],
       //plantsRef: firebase.firestore().collection("plants"),
       loading: true,
@@ -103,8 +107,7 @@ export default {
   },
   mounted() {
     if (this.checkIfSubscribed() == true) {
-      document.getElementById("button_add_plant_to_own_icon").innerHTML =
-        "done";
+      this.$data.btnSubscribeIcon = "done";
     }
 
     this.setLabels();
@@ -250,6 +253,8 @@ export default {
   line-height: normal;
   position: relative;
   color: white;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .split_left div i {
