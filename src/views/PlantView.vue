@@ -177,7 +177,7 @@ export default {
 <style>
 /* Split the screen in half */
 .split_left {
-  height: 50%;
+  height: auto;
   width: 40%;
   position: fixed;
   overflow-x: hidden;
@@ -185,7 +185,7 @@ export default {
 }
 
 .split_right {
-  height: 50%;
+  height: auto;
   width: 60%;
   position: fixed;
   overflow-x: hidden;
