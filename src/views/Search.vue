@@ -35,7 +35,6 @@ export default {
         { name: "a", isChecked: false },
         { name: "aa", isChecked: false },
       ],
-      loggedInUserId: "aUZv9PhWLXdFdoPpNHCc",
       checkedNames: [],
       searchQuery: "",
     };

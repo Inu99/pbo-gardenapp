@@ -6,9 +6,9 @@
           <!-- plant overview -->
           <CardContainer
             title="Mein Garten"
-            :plantIds="plantIds"
+            isHorizontal
+            showUserPlant
             cardSize="large"
-            :userId="$route.params.id"
           />
         </div>
         <div class="col-xl-3">
