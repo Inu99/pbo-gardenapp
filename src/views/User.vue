@@ -11,10 +11,10 @@
             cardSize="large"
           />
         </div>
-        <div class="col-xl-3">
+        <div class="col-xl-3 mt-5">
           <!-- user info -->
           <UserInfo :userId="$route.params.id" />
-          <PlantCalendar />
+          <PlantCalendar class="mt-3" />
         </div>
       </div>
     </div>
