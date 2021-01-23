@@ -2,6 +2,10 @@
 
 ## Date 23/01/21
 
+### Lucas
+
+- fix Fehler das alle Pflanzen auf der Nutzer Seite angezeigt werden
+
 ### Anton
 
 - Kalendar gerundet
