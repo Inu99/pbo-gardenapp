@@ -164,6 +164,11 @@ export default createStore({
         }
       })
       commit("setSearchedPlants", buff)
+    },
+    subscribePlant({ commit, state }, plant) {
+      let userPlants = state.userPlants;
+      userPlants.push(plant);
+      commit("setUserPlants", userPlants);
     }
   },
   modules: {

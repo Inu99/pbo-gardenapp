@@ -22,8 +22,11 @@
             <p id="button_add_plant_to_own_text" v-if="btnSubscribeHover">
               Pflanze Hinzufügen
             </p>
-            <i id="button_add_plant_to_own_icon" class="material-icons" v-else
-              >add</i
+            <i
+              id="button_add_plant_to_own_icon"
+              class="material-icons"
+              v-else
+              >{{ btnSubscribeIcon }}</i
             >
           </span>
         </div>
@@ -73,6 +76,7 @@ export default {
   data() {
     return {
       btnSubscribeHover: false,
+      btnSubscribeIcon: "add",
       plant: [],
       //plantsRef: firebase.firestore().collection("plants"),
       loading: true,
@@ -103,8 +107,7 @@ export default {
   },
   mounted() {
     if (this.checkIfSubscribed() == true) {
-      document.getElementById("button_add_plant_to_own_icon").innerHTML =
-        "done";
+      this.$data.btnSubscribeIcon = "done";
     }
 
     this.setLabels();
@@ -163,10 +166,10 @@ export default {
       return isFound;
     },
     onSubscribeClick() {
-      if (this.checkIfSubscribed()) {
-        console.log("is subscribed!");
-      } else {
-        console.log("is not subscribed!");
+      if (this.checkIfSubscribed() == false) {
+        console.log(this.plant.id);
+        this.$store.dispatch("subscribePlant", this.plant);
+        this.$data.btnSubscribeIcon = "done";
       }
     },
     onSubscribeHover() {},
@@ -177,7 +180,7 @@ export default {
 <style>
 /* Split the screen in half */
 .split_left {
-  height: 50%;
+  height: auto;
   width: 40%;
   position: fixed;
   overflow-x: hidden;
@@ -185,7 +188,7 @@ export default {
 }
 
 .split_right {
-  height: 50%;
+  height: auto;
   width: 60%;
   position: fixed;
   overflow-x: hidden;
@@ -250,6 +253,8 @@ export default {
   line-height: normal;
   position: relative;
   color: white;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .split_left div i {
