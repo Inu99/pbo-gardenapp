@@ -4,12 +4,7 @@
       <div class="row">
         <div class="col-xl">
           <!-- plant overview -->
-          <CardContainer
-            title="Mein Garten"
-            isHorizontal
-            showUserPlant
-            cardSize="large"
-          />
+          <CardContainer title="Mein Garten" showUserPlant cardSize="large" />
         </div>
         <div class="col-xl-3 mt-5">
           <!-- user info -->
