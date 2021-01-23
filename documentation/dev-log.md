@@ -1,5 +1,12 @@
 # In diesem Dokument kann man eine chronologische Entwicklung der App sehen
 
+## Date 23/01/21
+
+### Anton
+
+- Kalendar gerundet
+- add margins to user view 
+
 ## Date 18/01/21
 
 ### Lucas
