@@ -166,10 +166,10 @@ export default {
       return isFound;
     },
     onSubscribeClick() {
-      if (this.checkIfSubscribed()) {
-        console.log("is subscribed!");
-      } else {
-        console.log("is not subscribed!");
+      if (this.checkIfSubscribed() == false) {
+        console.log(this.plant.id);
+        this.$store.dispatch("subscribePlant", this.plant);
+        this.$data.btnSubscribeIcon = "done";
       }
     },
     onSubscribeHover() {},
